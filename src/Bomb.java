@@ -175,37 +175,44 @@ public class Bomb
 		switch(direction)
 		{
 			case 2: //up
-				map[x][y-speed][z].contain = 3;
+				map[x][y-speed][z].id = 3;
+				map[x][y-speed][z].dataTag = 0;
 				map[x][y-speed][z].planted = created;
 			break;
 			
 			case 4: //down 
-				map[x][y+speed][z].contain = 3;
+				map[x][y+speed][z].id = 3;
+				map[x][y+speed][z].dataTag = 0;
 				map[x][y+speed][z].planted = created;
 			break;
 							
 			case 3: //left
-				map[x-speed][y][z].contain = 6;
+				map[x-speed][y][z].id = 3;
+				map[x-speed][y][z].dataTag = 1;
 				map[x-speed][y][z].planted = created;
 			break;
 			
 			case 1: //right
-				map[x+speed][y][z].contain = 6;
+				map[x+speed][y][z].id = 3;
+				map[x+speed][y][z].dataTag = 1;
 				map[x+speed][y][z].planted = created;
 			break;
 			
 			case 5: //z up
-				map[x][y][z-speed].contain = 6;
+				map[x][y][z-speed].id = 3;
+				map[x][y][z-speed].dataTag = 3;
 				map[x][y][z-speed].planted = created;
 			break;
 			
 			case 6: //z down 
-				map[x][y][z+speed].contain = 6;
+				map[x][y][z+speed].id = 3;
+				map[x][y][z+speed].dataTag = 3;
 				map[x][y][z+speed].planted = created;
 			break;
 			
 			case 0: //none
-				map[x][y][z].contain = 7;
+				map[x][y][z].id = 3;
+				map[x][y][z].dataTag = 2;
 				map[x][y][z].planted = created;
 			break;
 		}	
@@ -216,31 +223,31 @@ public class Bomb
 		switch(direction)
 		{
 			case 2: //up
-				map[x][y-speed][z].contain = 0;
+				map[x][y-speed][z].id = 0;
 			break;
 			
 			case 4: //down 
-				map[x][y+speed][z].contain = 0;
+				map[x][y+speed][z].id = 0;
 			break;
 							
 			case 3: //left
-				map[x-speed][y][z].contain = 0;
+				map[x-speed][y][z].id = 0;
 			break;
 			
 			case 1: //right
-				map[x+speed][y][z].contain = 0;
+				map[x+speed][y][z].id = 0;
 			break;
 			
 			case 5: //z up
-				map[x][y][z-speed].contain = 0;
+				map[x][y][z-speed].id = 0;
 			break;
 			
 			case 6: //z down
-				map[x][y][z+speed].contain = 0;
+				map[x][y][z+speed].id = 0;
 			break;
 			
 			case 0: //none
-				map[x][y][z].contain = 0;
+				map[x][y][z].id = 0;
 			break;
 		}	
 	}
@@ -256,7 +263,7 @@ public class Bomb
 				}
 				else
 				{
-					if ( map[x][y-speed][z].contain == id)
+					if ( map[x][y-speed][z].id == id)
 					{
 						return 1;
 					}
@@ -270,7 +277,7 @@ public class Bomb
 				}
 				else
 				{
-					if (map[x][y+speed][z].contain == id)
+					if (map[x][y+speed][z].id == id)
 					{
 						return 1;
 					}
@@ -284,7 +291,7 @@ public class Bomb
 				}
 				else
 				{
-					if (map[x-speed][y][z].contain == id)
+					if (map[x-speed][y][z].id == id)
 					{
 						return 1;
 					}
@@ -298,7 +305,7 @@ public class Bomb
 				}
 				else
 				{
-					if (map[x+speed][y][z].contain == id)
+					if (map[x+speed][y][z].id == id)
 					{
 						return 1;
 					}
@@ -312,7 +319,7 @@ public class Bomb
 				}
 				else
 				{
-					if (map[x][y][z-speed].contain == id)
+					if (map[x][y][z-speed].id == id)
 					{
 						return 1;
 					}
@@ -326,7 +333,7 @@ public class Bomb
 				}
 				else
 				{
-					if (map[x][y][z+speed].contain == id)
+					if (map[x][y][z+speed].id == id)
 					{
 						return 1;
 					}
@@ -334,7 +341,7 @@ public class Bomb
 			break;
 			
 			case 0: //none
-				if (map[x][y][z].contain == id)
+				if (map[x][y][z].id == id)
 				{
 					return 1;
 				}

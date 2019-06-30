@@ -1,7 +1,6 @@
 
 
 import java.awt.AlphaComposite;
-import java.awt.Color;
 import java.awt.Composite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -12,7 +11,7 @@ import java.awt.Graphics2D;
 	contains the map class and item class
 	
 */
-public class Map 
+public class Map
 {
 	public static int length = 21;
 	public static int length_z = 21;
@@ -23,15 +22,18 @@ public class Map
 	
 	public static class Item
 	{
-		public int contain;
+		public int id;
+		public int dataTag;
 		public Bomb bomb;
 		public boolean hasBomb;
 		public int planted;
 		public Item()
 		{
-			contain = 0;
+			id = 0;
+			dataTag = 0;
 			planted = 0;
 			hasBomb = false;
+			planted	= 0;
 		}
 		
 	}
@@ -42,7 +44,7 @@ public class Map
 		public int screen_px = 200;
 		public int screen_py = 200;
 		
-		private void drawItemTexture(Graphics g, int x, int y, int id, Texture texture, float alpha)
+		private void drawItemTexture(Graphics g, int x, int y, int id,int dataTag, Texture texture, float alpha)
 		{
 			int item_width_c = (int) Math.sqrt(Math.pow(item_width,2)+Math.pow(item_width,2))+2;
 
@@ -56,7 +58,7 @@ public class Map
 			if (id != 0)
 			{
 				
-				 g.drawImage(texture.SpriteSheet[id],x-item_width_c/2,y-item_width_c/2,item_width_c,item_width_c,null);
+				 g.drawImage(texture.SpriteSheet[id][dataTag],x-item_width_c/2,y-item_width_c/2,item_width_c,item_width_c,null);
 				 g.drawRect(x-item_width_c/2,y-item_width_c/2,item_width_c,item_width_c);
 			}
 
@@ -212,7 +214,7 @@ public class Map
 
 			if (map[cellX][cellY][cellZ].hasBomb == true)
 			{
-				drawItemTexture(g,screen_px+(int)(padding_camera_x*item_width_c)+camera.drawPadding,screen_py+(int)(padding_camera_y * item_width_c),5,SpriteSheet,alphaValue);
+				drawItemTexture(g,screen_px+(int)(padding_camera_x*item_width_c)+camera.drawPadding,screen_py+(int)(padding_camera_y * item_width_c),5, 0,SpriteSheet,alphaValue);
 			}
 
 			for (int i = 0; i < maxPlayers; i++)
@@ -221,12 +223,12 @@ public class Map
 
 				if (cellX == iPlayer.x && cellY == iPlayer.y && cellZ == iPlayer.z) {
 					if (iPlayer.alive == true) {
-						drawItemTexture(g,screen_px+(int)(padding_camera_x*item_width_c)+camera.drawPadding,screen_py+(int)(padding_camera_y * item_width_c),9, SpriteSheet, alphaValue);
+						drawItemTexture(g,screen_px+(int)(padding_camera_x*item_width_c)+camera.drawPadding,screen_py+(int)(padding_camera_y * item_width_c),4,iPlayer.color, SpriteSheet, alphaValue);
 					}
 				}
 			}
-			drawItemTexture(g,screen_px+(int)(padding_camera_x*item_width_c)+camera.drawPadding,screen_py+(int)(padding_camera_y * item_width_c),map[cellX][cellY][cellZ].contain,SpriteSheet,alphaValue);
-			//drawItemTexture(g,screen_px+padding_camera_x*((int) item_width_c)+camera.drawPadding,screen_py+padding_camera_y *((int) item_width_c),map[cellX][cellY][cellZ].contain,SpriteSheet,alphaValue);
+			drawItemTexture(g,screen_px+(int)(padding_camera_x*item_width_c)+camera.drawPadding,screen_py+(int)(padding_camera_y * item_width_c),map[cellX][cellY][cellZ].id,map[cellX][cellY][cellZ].dataTag,SpriteSheet,alphaValue);
+			//drawItemTexture(g,screen_px+padding_camera_x*((int) item_width_c)+camera.drawPadding,screen_py+padding_camera_y *((int) item_width_c),map[cellX][cellY][cellZ].id,SpriteSheet,alphaValue);
 		}
 
 	}
@@ -272,28 +274,28 @@ public class Map
 						{
 							if (random > 65)
 							{
-								item.contain = 2;
+								item.id = 2;
 							}
 							else
 							{
 								random = (int)(Math.random() * 100 + 1);
-								
+								item.id = 1;
 								if (random > 60)
 								{
-								item.contain = 8;
+								item.dataTag = 1;
 								}
 								else
 								{
-								item.contain = 1;
+								item.dataTag = 0;
 								}
 							}
 						}
 						else
 						{
-							item.contain = 0;
+							item.id = 0;
 						}
 					map[i][i1][i2] = item;
-					System.out.println(map[i][i1][i2].contain);
+					System.out.println(map[i][i1][i2].id);
 					}
 				}
 			}
@@ -310,81 +312,85 @@ public class Map
 					
 					int random = (int)(Math.random() * 100 + 1);
 					
-					item.contain = 2;
+					item.id = 2;
 					
 					if (i % 2 == 0 && i1 % 2 == 0)
 					{
+						item.id = 1;
 						if (random > 60)
 						{
-						item.contain = 8;
+						item.dataTag = 1;
 						}
 						else
 						{
-						item.contain = 1;
+						item.dataTag = 0;
 						}
 					}
 					
 					if (i == 1 && i1 == 1 && i2 == 1)
 					{
-						item.contain = 0;
+						item.id = 0;
 					}
 					
 					if (i == length-2 && i1 == length-2 && i2 == length_z-2)
 					{
-						item.contain = 0;
+						item.id = 0;
 					}
 					
 					if (i1 == 1 || i1 == length-2)
 					{
-						item.contain = 0;
+						item.id = 0;
 					}
 					
 					if (i == 1 || i == length-2)
 					{
-						item.contain = 0;
+						item.id = 0;
 					}
 
 					
 					if (i == 0 || i == length-1)
 					{
+						item.id = 1;
 						if (random > 60)
 						{
-						item.contain = 8;
+						item.dataTag = 1;
 						}
 						else
 						{
-						item.contain = 1;
+						item.dataTag = 0;
 						}
 					}
 					
 					if (i1 == 0 || i1 == length-1)
 					{
+						item.id = 1;
 						if (random > 60)
 						{
-						item.contain = 8;
+							item.dataTag = 1;
 						}
 						else
 						{
-						item.contain = 1;
+							item.dataTag = 0;
 						}
 					}
 					
 					if (i2 == 0 || i2 == length_z-1)
 					{
+						item.id = 1;
 						if (random > 60)
 						{
-						item.contain = 8;
+							item.dataTag = 1;
 						}
 						else
 						{
-						item.contain = 1;
+							item.dataTag = 0;
 						}
 					}
 					
 					
 					
 					map[i][i1][i2] = item;
-					System.out.println(map[i][i1][i2].contain);
+					System.out.println(map[i][i1][i2].id);
 					}
 				}
 			}
@@ -395,7 +401,7 @@ public class Map
 	{
 		Item item = new Item();
 		item.bomb = _bomb;
-		item.contain = _contain;
+		item.id = _contain;
 		item.hasBomb = _hasBomb;
 
 		map[_x][_y][_z] = item;
@@ -418,7 +424,7 @@ public class Map
 					{
 						if (Time.fullTick-map[i][i1][i2].planted >= 8)
 						{
-							map[i][i1][i2].contain = 0;
+							map[i][i1][i2].id = 0;
 						}
 					}
 				}

@@ -6,6 +6,7 @@ public class Player
 	public int z;
 	public int direction;
 	public int health;
+	public int color;
 
 	private boolean damage;
 	private boolean move;
@@ -16,6 +17,7 @@ public class Player
 	
 	public Player(int _x, int _y,int _z)
 	{
+		color = 1;
 		x = _x;
 		y = _y;
 		z = _y;
@@ -32,6 +34,7 @@ public class Player
 	
 	public Player()
 	{
+		color = 2;
 		x = 1;
 		y = 1;
 		z = 1;
@@ -51,49 +54,49 @@ public class Player
 		switch(direction)
 		{
 			case 0:
-				if (Map.map[x][y][z].contain == id)
+				if (Map.map[x][y][z].id == id)
 				{
 					return true;
 				}
 			break;
 		
 			case 2: //left y
-				if (y-speed < 0 || Map.map[x][y-speed][z].contain == id)
+				if (y-speed < 0 || Map.map[x][y-speed][z].id == id)
 				{
 					return true;
 				}
 			break;
 			
 			case 4: //right y
-				if (y+speed > Map.length-1 || Map.map[x][y+speed][z].contain == id)
+				if (y+speed > Map.length-1 || Map.map[x][y+speed][z].id == id)
 				{
 					return true;
 				}
 			break;
 							
 			case 3: //left x
-				if (x-speed < 0 || Map.map[x-speed][y][z].contain == id)
+				if (x-speed < 0 || Map.map[x-speed][y][z].id == id)
 				{
 					return true;
 				}
 			break;
 			
 			case 1: //right x
-				if (x+speed > Map.length-1 || Map.map[x+speed][y][z].contain == id)
+				if (x+speed > Map.length-1 || Map.map[x+speed][y][z].id == id)
 				{
 					return true;
 				}
 			break;
 			
 			case 5: //left z
-				if (z-speed < 0 || Map.map[x][y][z-speed].contain == id)
+				if (z-speed < 0 || Map.map[x][y][z-speed].id == id)
 				{
 					return true;
 				}
 			break;
 			
 			case 6: //right z
-				if (z+speed > Map.length_z-1 || Map.map[x][y][z+speed].contain == id)
+				if (z+speed > Map.length_z-1 || Map.map[x][y][z+speed].id == id)
 				{
 					return true;
 				}

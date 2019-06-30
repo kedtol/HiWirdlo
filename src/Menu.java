@@ -10,7 +10,6 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public class Menu extends JPanel
 {
@@ -19,7 +18,6 @@ public class Menu extends JPanel
 	private int mouseX, mouseY;
 	//private JTextField jt = new JTextField("RANDOMSZARNEMEMEMEEMEMGY");
 	private JButton jb = new JButton("HITME");
-	private boolean draw_text1 = true;
 	private int box_x = 450;
 	private int box_y = 450;
 	
@@ -62,11 +60,8 @@ public class Menu extends JPanel
 		g.setColor(Color.CYAN);
 		String mPos = "Pos: " + mouseX + " " + mouseY;
 		g.drawString(mPos, mouseX, mouseY);
-		
-		if (draw_text1 == true)
-		{
-			g.drawRect(box_x, box_y, 40, 40);
-		}
+
+		g.drawRect(box_x, box_y, 40, 40);
 	}
 	
 	
@@ -76,14 +71,12 @@ public class Menu extends JPanel
 		@Override
 		public void mouseDragged(MouseEvent e) 
 		{
-			// TODO Auto-generated method stub
 	
 		}
 
 		@Override
 		public void mouseMoved(MouseEvent e) 
 		{
-			// TODO Auto-generated method stub
 			mouseX = e.getX();
 			mouseY = e.getY();
 		}
@@ -101,19 +94,16 @@ public class Menu extends JPanel
 
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void mouseExited(MouseEvent arg0) {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void mousePressed(MouseEvent arg0) {
-			// TODO Auto-generated method stub
 			if(arg0.getButton() == MouseEvent.BUTTON1)
 			{
 			//	jt.setText("BALLENYOMVA");
@@ -122,7 +112,6 @@ public class Menu extends JPanel
 
 		@Override
 		public void mouseReleased(MouseEvent arg0) {
-			// TODO Auto-generated method stub
 		//	jt.setText("RELEASED");
 		}
 		
@@ -134,7 +123,6 @@ public class Menu extends JPanel
 		@Override
 		public void keyPressed(KeyEvent arg0) 
 		{
-			// TODO Auto-generated method stub
 			
 			System.out.println("pressed: " + arg0.getKeyCode());
 			switch(arg0.getKeyCode())
@@ -167,14 +155,12 @@ public class Menu extends JPanel
 
 		@Override
 		public void keyReleased(KeyEvent arg0) {
-			// TODO Auto-generated method stub
 			System.out.println("released: " + arg0.getKeyCode());
 		}
 
 		@Override
 		public void keyTyped(KeyEvent arg0) 
 		{
-			// TODO Auto-generated method stub
 			
 			System.out.println("typed: " + arg0.getKeyCode());
 			
@@ -216,7 +202,6 @@ public class Menu extends JPanel
 
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
-			// TODO Auto-generated method stub
 			int x_calc_rand = (int) ((ablakSize-jb.getWidth())*Math.random());
 			while (x_calc_rand <= 0)
 			{
@@ -234,13 +219,11 @@ public class Menu extends JPanel
 
 		@Override
 		public void mouseExited(MouseEvent arg0) {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void mousePressed(MouseEvent arg0) {
-			// TODO Auto-generated method stub
 			if(arg0.getButton() == MouseEvent.BUTTON1)
 			{
 			//	jt.setText("BALLENYOMVA");
@@ -249,7 +232,6 @@ public class Menu extends JPanel
 
 		@Override
 		public void mouseReleased(MouseEvent arg0) {
-			// TODO Auto-generated method stub
 			//jt.setText("RELEASED");
 		}
 		

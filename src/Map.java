@@ -42,50 +42,6 @@ public class Map
 		public int screen_px = 200;
 		public int screen_py = 200;
 		
-		private void drawItem(Graphics g, int x, int y, boolean top)
-		{
-			double x_calc_1;
-			double y_calc_1;
-			int angle = 4;
-			
-			if (top == true)
-			{
-				g.setColor(Color.RED);
-				x_calc_1 = x+Math.sin(Math.toRadians((360/angle)+45))*item_width;
-				y_calc_1 = y+Math.cos(Math.toRadians((360/angle)+45))*item_width;
-			}
-			else
-			{
-				g.setColor(Color.GREEN);
-				x_calc_1 = x+Math.sin(Math.toRadians((360/angle*2)+45))*item_width;
-				y_calc_1 = y+Math.cos(Math.toRadians((360/angle*2)+45))*item_width;
-			}
-			
-			for (int i = 2; i <= angle+1; i++)
-			{
-				double x_calc = x+Math.sin(Math.toRadians(360/angle*i+45))*item_width;
-				double y_calc = y+Math.cos(Math.toRadians(360/angle*i+45))*item_width;
-				g.drawLine((int) x_calc,(int) y_calc,(int) x_calc_1,(int) y_calc_1);
-				x_calc_1 = x_calc;
-				y_calc_1 = y_calc;
-			}
-		}
-		
-		private void drawItemFill(Graphics g, int x, int y, boolean fill)
-		{
-			int item_width_c = (int) Math.sqrt(Math.pow(item_width,2)+Math.pow(item_width,2))+2;
-
-			//g.setColor(Color.RED);
-			if (fill == true)
-			{
-			g.fillRect(x-item_width_c/2,y-item_width_c/2,item_width_c,item_width_c);
-			}
-			else
-			{
-			g.drawRect(x-item_width_c/2,y-item_width_c/2,item_width_c,item_width_c);
-			}
-		}
-		
 		private void drawItemTexture(Graphics g, int x, int y, int id, Texture texture, float alpha)
 		{
 			int item_width_c = (int) Math.sqrt(Math.pow(item_width,2)+Math.pow(item_width,2))+2;
@@ -177,26 +133,34 @@ public class Map
 				break;
 				
 				}
-			
-			for (int i = camX-camX_rs-1; i < camX+camX_rs; i++)
+			if (alpha == true)
 			{
-				for (int i1 = camY-camY_rs-1; i1 < camY+camY_rs; i1++)
+				for (int i2 = -1; i2 <= 1; i2++)
 				{
-					if (alpha == true)
+					for (int i = camX - camX_rs - 1; i < camX + camX_rs; i++)
 					{
-						for (int i2 = -1; i2 <= 1; i2++)
+						for (int i1 = camY - camY_rs - 1; i1 < camY + camY_rs; i1++)
 						{
-							cellR = cellSet(i, i1, cell,i2);
-							drawMap(g, SpriteSheet, cellR[0], cellR[1], cellR[2], i, i1, camX, camY, camX_rs, camY_rs, camera,true,i2);
+
+							cellR = cellSet(i, i1, cell, i2);
+							drawMap(g, SpriteSheet, cellR[0], cellR[1], cellR[2], i, i1, camX, camY, camX_rs, camY_rs, camera, true, i2);
+
 						}
+
 					}
-					else
+				}
+			}
+			else
+			{
+				for (int i = camX-camX_rs-1; i < camX+camX_rs; i++)
+				{
+					for (int i1 = camY-camY_rs-1; i1 < camY+camY_rs; i1++)
 					{
+
 						cellR = cellSet(i, i1, cell,0);
 						drawMap(g, SpriteSheet, cellR[0], cellR[1], cellR[2], i, i1, camX, camY, camX_rs, camY_rs, camera,false,0);
 					}
 				}
-				
 			}
 		}
 		
@@ -242,7 +206,7 @@ public class Map
 				{
 					padding_camera_x = padding_camera_x + padding_camera_z / 1.5f;
 					padding_camera_y = padding_camera_y + padding_camera_z / 1.5f;
-					alphaValue = 0.5f;
+					alphaValue = 0.4f;
 				}
 			}
 
@@ -264,39 +228,7 @@ public class Map
 			drawItemTexture(g,screen_px+(int)(padding_camera_x*item_width_c)+camera.drawPadding,screen_py+(int)(padding_camera_y * item_width_c),map[cellX][cellY][cellZ].contain,SpriteSheet,alphaValue);
 			//drawItemTexture(g,screen_px+padding_camera_x*((int) item_width_c)+camera.drawPadding,screen_py+padding_camera_y *((int) item_width_c),map[cellX][cellY][cellZ].contain,SpriteSheet,alphaValue);
 		}
-		
-		public void drawMapAlpha(Graphics g, Texture SpriteSheet, Camera camera)
-		{
-			for (int i2 = -1; i2 <= 1; i2++)
-			{
-				for (int i = camera.x-camera.x_rs-1; i < camera.x+camera.x_rs; i++)
-				{
-					for (int i1 = camera.y-camera.y_rs-1; i1 < camera.y+camera.y_rs; i1++)
-					{
-						double item_width_c = Math.sqrt(Math.pow(item_width,2)+Math.pow(item_width,2))+2;
-						float padding_camera_x = i-(camera.x-camera.x_rs);
-						float padding_camera_y = i1-(camera.y-camera.y_rs);
-						
-						float alpha = 1f;
-						int padding_camera_z = 1*i2;
-						
-						if (i2 != 0)
-						{
-							padding_camera_x = padding_camera_x+padding_camera_z/1.5f;
-							padding_camera_y = padding_camera_y+padding_camera_z/1.5f;
-							alpha = 0.5f;
-						}
-						
-						if (map[i][i1][camera.z+i2].hasBomb == true)
-						{
-							drawItemTexture(g,screen_px+(int)(padding_camera_x*item_width_c),screen_py+(int)(padding_camera_y * item_width_c),5,SpriteSheet,alpha);
-						}
-						drawItemTexture(g,screen_px+(int)(padding_camera_x*item_width_c),screen_py+(int)(padding_camera_y * item_width_c),map[i][i1][camera.z+i2].contain,SpriteSheet,alpha);
-					}
-					
-				}
-			}
-		}
+
 	}
 
 	public Map(int _length,int _length_z,int _generatorId,int _maxPlayers)

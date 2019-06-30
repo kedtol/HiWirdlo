@@ -180,7 +180,6 @@ public class GamePanel extends JPanel
 		@Override
 		public void keyPressed(KeyEvent arg0) 
 		{
-			// TODO Auto-generated method stub
 			
 			//System.out.println("pressed: " + arg0.getKeyCode());
 			
@@ -190,14 +189,12 @@ public class GamePanel extends JPanel
 
 		@Override
 		public void keyReleased(KeyEvent arg0) {
-			// TODO Auto-generated method stub
 			//System.out.println("released: " + arg0.getKeyCode());
 		}
 
 		@Override
 		public void keyTyped(KeyEvent arg0) 
 		{
-			// TODO Auto-generated method stub
 			
 			//System.out.println("typed: " + arg0.getKeyCode());
 			

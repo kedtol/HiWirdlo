@@ -1,0 +1,37 @@
+
+
+Ids
+
+0 - air
+1 - wall
+2 - box
+3 - explosion
+4 - player
+5 - bomb
+6 - power ups
+
+DataTags
+
+1:0 = wall
+1:1 = wall_mossy
+
+3:0 = explosion_v
+3:1 = explosion_h
+3:2 = explosion_c
+3:3 = explosion_f
+
+4:0 = player_gray
+4:1 = player_blue
+4:2 = player_red
+4:3 = player_purple
+4:4 = player_green
+4:5 = player_yellow
+4:6 = player_orange
+4:7 = player_pink
+4:8 = player_olive
+
+6:0 = powerUp_speed
+6:1 = powerUp_bomb_amount
+6:2 = powerUp_bomb_size
+6:3 = powerUp_bomb_push
+6:4 = powerUp_bomb_3direction

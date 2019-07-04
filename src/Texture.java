@@ -78,20 +78,20 @@ public class Texture
 						{
 							//SpriteSheet[i][i1] = ImageIO.read(getClass().getResource("SpriteSheet"+i+"_"+i1+".png"));
 							System.out.println("DataTag confirmed: "+i1+" at "+i);
-							SpriteSheet[i][0] = ImageIO.read(getClass().getResource("SpriteSheet"+i+"_"+i1+".png"));
+							SpriteSheet[i][i1] = ImageIO.read(getClass().getResource("SpriteSheet"+i+"_"+i1+".png"));
 							hasDataTag = true;
 						}
 						else
 						{
 							System.out.println("No dataTag Texture: "+i1+" at "+i);
-							SpriteSheet[i][0] = null;
+							SpriteSheet[i][i1] = null;
 							hasDataTag = false;
 						}
 					}
 					catch (IOException e)
 					{
 						//empty
-						SpriteSheet[i][0] = null;
+						SpriteSheet[i][i1] = null;
 						hasDataTag = false;
 					}
 				}

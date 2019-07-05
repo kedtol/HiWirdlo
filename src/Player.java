@@ -7,6 +7,12 @@ public class Player
 	public int direction;
 	public int health;
 	public int color;
+	public float speed;
+	public int maxBombCount = 1;
+	public int bombCount = 0;
+	public int bombSize = 1;
+	public boolean bombPush = false;
+	public boolean bombFDirection = false;
 
 	private boolean damage;
 	private boolean move;
@@ -23,13 +29,14 @@ public class Player
 		z = _y;
 		direction = 0;
 		health = 3;
+		speed = 0.2f;
 
 		damage = false;
 		move = false;
 
 		camera = new Camera(800);
 
-		alarm.setLength(0.2f);
+		alarm.setLength(speed);
 	}
 	
 	public Player()
@@ -40,13 +47,14 @@ public class Player
 		z = 1;
 		direction = 0;
 		health = 3;
+		speed = 0.2f;
 
 		damage = false;
 		move = false;
 
 		camera = new Camera(0);
 
-		alarm.setLength(0.2f);
+		alarm.setLength(speed);
 	}
 	
 	private boolean collide(int direction,int speed, int id)
@@ -107,7 +115,7 @@ public class Player
 	
 	public void collision()
 	{
-		if (collide(0,1,3) == true || collide(0,1,7) == true || collide(0,1,6) == true)
+		if (collide(0,1,3) == true)
 		{
 			if (damage == false && health > 0)
 			{
@@ -120,7 +128,15 @@ public class Player
 		{
 			damage = false;
 		}
-		
+
+
+		if (Map.map[x][y][z].hasPowerUp == true)
+		{
+			applyEffect(Map.map[x][y][z].powerUp.type);
+			Map.map[x][y][z].hasPowerUp = false;
+			Map.setItem(x,y,z,0,0,null,false,null,false);
+		}
+
 		if (health == 0)
 		{
 			alive = false;
@@ -223,7 +239,7 @@ public class Player
 				break;
 				
 				case 8:
-					placebomb();
+					placeBomb();
 					direction = 0;
 				break;
 				
@@ -320,16 +336,56 @@ public class Player
 		}
 	}
 
-	private void placebomb()
+	private void placeBomb()
 	{
-		Bomb bomb = new Bomb();
-		bomb.x = x;
-		bomb.y = y;
-		bomb.z = z;
+		if (bombCount < maxBombCount)
+		{
+			Bomb bomb = new Bomb();
+			bomb.x = x;
+			bomb.y = y;
+			bomb.z = z;
+			bomb.iPlayer = this;
+			bomb.size = bombSize;
 
-		Map.setItem(x,y,z,bomb,0,true);
-		System.out.println("bomb");
+			Map.setItem(x, y, z, 0, 0, bomb, true, null, false);
+			System.out.println("bomb");
+			bombCount += 1;
+		}
+	}
 
+	private void applyEffect(int type)
+	{
+		switch (type)
+		{
+			case 0:
 
+				alarm.setLength(speed-0.05f);
+
+			break;
+
+			case 1:
+
+				maxBombCount += 1;
+
+			break;
+
+			case 2:
+
+				bombSize += 1;
+
+			break;
+
+			case 3:
+
+				bombPush = true;
+
+			break;
+
+			case 4:
+
+				bombFDirection = true;
+
+			break;
+		}
 	}
 }

@@ -24,16 +24,22 @@ public class Map
 	{
 		public int id;
 		public int dataTag;
+
 		public Bomb bomb;
 		public boolean hasBomb;
 		public int planted;
+
+		public PowerUp powerUp;
+		public boolean hasPowerUp;
+
 		public Item()
 		{
 			id = 0;
 			dataTag = 0;
+
 			planted = 0;
 			hasBomb = false;
-			planted	= 0;
+			hasPowerUp = false;
 		}
 		
 	}
@@ -217,6 +223,11 @@ public class Map
 				drawItemTexture(g,screen_px+(int)(padding_camera_x*item_width_c)+camera.drawPadding,screen_py+(int)(padding_camera_y * item_width_c),5, 0,SpriteSheet,alphaValue);
 			}
 
+			if (map[cellX][cellY][cellZ].hasPowerUp == true)
+			{
+				drawItemTexture(g,screen_px+(int)(padding_camera_x*item_width_c)+camera.drawPadding,screen_py+(int)(padding_camera_y * item_width_c),6, map[cellX][cellY][cellZ].powerUp.type,SpriteSheet,alphaValue);
+			}
+
 			for (int i = 0; i < maxPlayers; i++)
 			{
 				Player iPlayer = playerList[i];
@@ -397,12 +408,18 @@ public class Map
 		}
 	}
 
-	public static void setItem(int _x, int _y, int _z, Bomb _bomb, int _contain, boolean _hasBomb)
+	public static void setItem(int _x, int _y, int _z, int _contain, int _dataTag, Bomb _bomb, boolean _hasBomb, PowerUp _powerUp, boolean _hasPowerUp)
 	{
 		Item item = new Item();
-		item.bomb = _bomb;
+
 		item.id = _contain;
+		item.dataTag = _dataTag;
+
+		item.bomb = _bomb;
 		item.hasBomb = _hasBomb;
+
+		item.powerUp = _powerUp;
+		item.hasPowerUp = _hasPowerUp;
 
 		map[_x][_y][_z] = item;
 	}
@@ -420,11 +437,16 @@ public class Map
 						map[i][i1][i2].bomb.explode();
 					}
 					
-					if (map[i][i1][i2].planted > 0)
+					if (map[i][i1][i2].id == 3)
 					{
 						if (Time.fullTick-map[i][i1][i2].planted >= 8)
 						{
+							if (map[i][i1][i2].hasBomb == true)
+							{
+								map[i][i1][i2].bomb.iPlayer.bombCount -= 1;
+							}
 							map[i][i1][i2].id = 0;
+							map[i][i1][i2].hasBomb = false;
 						}
 					}
 				}

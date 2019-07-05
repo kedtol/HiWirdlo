@@ -1,25 +1,41 @@
 public class PowerUp
 {
-    private int type;
+   public int type;
 
-    int x;
-    int y;
-    int z;
 
-    public PowerUp(int _type,int _x,int _y,int _z)
+    public PowerUp()
     {
-        type = _type;
-        x = _x;
-        y = _y;
-        z = _z;
+        int random = (int)(Math.random() * 100 + 1);
+
+        if (random > 70)
+        {
+            type = 0;
+        }
+        else
+        {
+            if (random > 40)
+            {
+                type = 1;
+            }
+            else
+            {
+                if (random > 10)
+                {
+                    type = 2;
+                }
+                else
+                {
+                    if (random > 5)
+                    {
+                        type = 3;
+                    }
+                    else
+                    {
+                        type = 4;
+                    }
+                }
+            }
+        }
     }
 
-
-
-    public void destroy()
-    {
-        Map.Item item = new Map.Item();
-
-        Map.map[x][y][z] = item;
-    }
 }

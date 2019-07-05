@@ -5,11 +5,10 @@ public class Bomb
 	public int y;
 	public int z;
 	private int created;
-	private int explosionTime;
-	private int fireTime;
-	private int size;
+	public int size;
 	private int[] explosionIndex = new int[6];
 	private boolean explosion;
+	public Player iPlayer;
 
 	private Alarm alarm = new Alarm();
 	
@@ -26,10 +25,9 @@ public class Bomb
 		explosionIndex[4] = 0;
 		explosionIndex[5] = 0;
 
-		explosionTime = 5;
 		size = 3;
+		created = Time.fullTick;
 
-		fireTime = 3;
 		alarm.setLength(5);
 		alarm.start();
 
@@ -56,6 +54,7 @@ public class Bomb
 						else
 						{
 							System.out.println("systemTick - bomb disarmed");
+							iPlayer.bombCount -= 1;
 							map[x][y][z].hasBomb = false;
 						}
 						explosionIndex[0] = 1;
@@ -81,6 +80,7 @@ public class Bomb
 									if (collide(i+1, explosionIndex[i],2) == 1)
 									{
 									setExplosion(i+1, explosionIndex[i]);
+									setPowerUp(i+1, explosionIndex[i]);
 									}
 									explosionIndex[i] = -1;
 								}
@@ -132,6 +132,7 @@ public class Bomb
 					else
 					{
 						setClear(0,0);
+						iPlayer.bombCount -= 1;
 						System.out.println("systemTick - bomb disarmed");
 						map[x][y][z].hasBomb = false;
 					}
@@ -166,6 +167,7 @@ public class Bomb
 				}
 			}
 			System.out.println("systemTick - bomb disarmed");
+			iPlayer.bombCount -= 1;
 			map[x][y][z].hasBomb = false;
 		}
 	}
@@ -179,43 +181,87 @@ public class Bomb
 				map[x][y-speed][z].dataTag = 0;
 				map[x][y-speed][z].planted = created;
 			break;
-			
-			case 4: //down 
+
+			case 4: //down
 				map[x][y+speed][z].id = 3;
 				map[x][y+speed][z].dataTag = 0;
 				map[x][y+speed][z].planted = created;
 			break;
-							
+
 			case 3: //left
 				map[x-speed][y][z].id = 3;
 				map[x-speed][y][z].dataTag = 1;
 				map[x-speed][y][z].planted = created;
 			break;
-			
+
 			case 1: //right
 				map[x+speed][y][z].id = 3;
 				map[x+speed][y][z].dataTag = 1;
 				map[x+speed][y][z].planted = created;
 			break;
-			
+
 			case 5: //z up
 				map[x][y][z-speed].id = 3;
 				map[x][y][z-speed].dataTag = 3;
 				map[x][y][z-speed].planted = created;
 			break;
-			
-			case 6: //z down 
+
+			case 6: //z down
 				map[x][y][z+speed].id = 3;
 				map[x][y][z+speed].dataTag = 3;
 				map[x][y][z+speed].planted = created;
 			break;
-			
+
 			case 0: //none
 				map[x][y][z].id = 3;
 				map[x][y][z].dataTag = 2;
 				map[x][y][z].planted = created;
 			break;
-		}	
+		}
+	}
+
+	private void setPowerUp (int direction, int speed)
+	{
+		PowerUp powerUp = new PowerUp();
+
+		switch(direction)
+		{
+			case 2: //up
+				map[x][y-speed][z].powerUp = powerUp;
+				map[x][y-speed][z].hasPowerUp = true;
+				break;
+
+			case 4: //down
+				map[x][y+speed][z].powerUp = powerUp;
+				map[x][y+speed][z].hasPowerUp = true;
+				break;
+
+			case 3: //left
+				map[x-speed][y][z].powerUp = powerUp;
+				map[x-speed][y][z].hasPowerUp = true;
+				break;
+
+			case 1: //right
+				map[x+speed][y][z].powerUp = powerUp;
+				map[x+speed][y][z].hasPowerUp = true;
+				break;
+
+			case 5: //z up
+				map[x][y][z-speed].powerUp = powerUp;
+				map[x][y][z-speed].hasPowerUp = true;
+				break;
+
+			case 6: //z down
+				map[x][y][z+speed].powerUp = powerUp;
+				map[x][y][z+speed].hasPowerUp = true;
+				break;
+
+			case 0: //none
+				map[x][y][z].powerUp = powerUp;
+				map[x][y][z].hasPowerUp = true;
+				break;
+
+		}
 	}
 	
 	private void setClear (int direction, int speed)

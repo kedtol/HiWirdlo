@@ -159,8 +159,8 @@ public class GamePanel extends JPanel
 		
 		Graphics2D g2d = (Graphics2D) g.create();
 		super.paintComponent(g2d);
-		g2d.setColor(Color.GRAY);
-		g2d.fillRect(0, 0, ablakSize*2, ablakSize);
+		g2d.setColor(Color.BLACK);
+		g2d.fillRect(0, 0, ablakSize*2-160, ablakSize);
 		
 		//System.out.println("PAINT "+System.currentTimeMillis());
 		

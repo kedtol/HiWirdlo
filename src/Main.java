@@ -9,7 +9,7 @@ public class  Main
 {
 	public static void main(String[] agrs)
 	{
-		int ablakSize = 960;
+		int ablakSize = 650;
 		System.out.println("HALLOSENTABITTESEHR");
 		JFrame mf = new JFrame("SWINGPROJECT");
 		mf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -19,7 +19,7 @@ public class  Main
 		mf.add(m,BorderLayout.CENTER);
 		
 		mf.pack();
-		mf.setSize(new Dimension(ablakSize*2,ablakSize));
+		mf.setSize(new Dimension(ablakSize*2-160,ablakSize));
 		mf.setVisible(true);
 		
 		

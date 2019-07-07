@@ -34,7 +34,7 @@ public class Player
 		damage = false;
 		move = false;
 
-		camera = new Camera(800);
+		camera = new Camera(500);
 
 		alarm.setLength(speed);
 	}
@@ -362,20 +362,27 @@ public class Player
 		switch (type)
 		{
 			case 0:
-
-				alarm.setLength(speed-0.05f);
-
+				if (speed > 0.15f)
+				{
+					speed -= 0.05f;
+					alarm.setLength(speed);
+				}
 			break;
 
 			case 1:
 
-				maxBombCount += 1;
-
+				if (maxBombCount < 4)
+				{
+					maxBombCount += 1;
+				}
 			break;
 
 			case 2:
+				if (bombSize < 6)
+				{
+					bombSize += 1;
+				}
 
-				bombSize += 1;
 
 			break;
 

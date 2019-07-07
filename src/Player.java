@@ -346,6 +346,10 @@ public class Player
 			bomb.z = z;
 			bomb.iPlayer = this;
 			bomb.size = bombSize;
+			if (bombFDirection == true)
+			{
+				bomb.bombDirection = 6;
+			}
 
 			Map.setItem(x, y, z, 0, 0, bomb, true, null, false);
 			System.out.println("bomb");

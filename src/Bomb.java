@@ -9,6 +9,7 @@ public class Bomb
 	private int[] explosionIndex = new int[6];
 	private boolean explosion;
 	public Player iPlayer;
+	int bombDirection = 4;
 
 	private Alarm alarm = new Alarm();
 	
@@ -66,7 +67,7 @@ public class Bomb
 					}
 					else
 					{
-						for (int i = 0; i < 6; i++)
+						for (int i = 0; i < bombDirection; i++)
 						{
 							
 							if (explosionIndex[i] != -1 && explosionIndex[i] <= size)
@@ -90,12 +91,17 @@ public class Bomb
 								explosionIndex[i] = -1;
 							}
 						}
-						for (int i = 0; i < 6; i++)
+						for (int i = 0; i < bombDirection; i++)
 						{
 							if (explosionIndex[i] != -1)
 							{
 							explosionIndex[i]+= 1;
 							}
+						}
+						if (bombDirection == 4)
+						{
+							explosionIndex[4] = -1;
+							explosionIndex[5] = -1;
 						}
 					}
 				}
@@ -145,7 +151,7 @@ public class Bomb
 				}
 				else
 				{
-					for (int i = 0; i < 6; i++)
+					for (int i = 0; i < bombDirection; i++)
 					{
 						if (explosionIndex[i] != -1 && (collide(i+1, explosionIndex[i],3) == 1 || collide(i+1, explosionIndex[i],6) == 1 || collide(i+1, explosionIndex[i],7) == 1) && explosionIndex[i] <= size)
 						{
@@ -157,7 +163,7 @@ public class Bomb
 							
 						}
 					}
-					for (int i = 0; i < 6; i++)
+					for (int i = 0; i < bombDirection; i++)
 					{
 						if (explosionIndex[i] != -1)
 						{

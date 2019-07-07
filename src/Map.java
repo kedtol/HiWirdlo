@@ -1,9 +1,6 @@
 
 
-import java.awt.AlphaComposite;
-import java.awt.Composite;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
 
 //	map class
 /*
@@ -46,26 +43,22 @@ public class Map
 
 	public static abstract class MapDrawing
 	{
-		private int item_width = 32;
-		public int screen_px = 200;
-		public int screen_py = 200;
+		private int item_width = 36;
+		public int screen_px = 140;
+		public int screen_py = 120;
 		
 		private void drawItemTexture(Graphics g, int x, int y, int id,int dataTag, Texture texture, float alpha)
 		{
-			int item_width_c = (int) Math.sqrt(Math.pow(item_width,2)+Math.pow(item_width,2))+2;
+			int item_width_c = item_width;
 
-			
-			
 			Composite comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , alpha );
-			
-			//AlphaComposite alcom = AlphaComposite.getInstance(AlphaComposite.CLEAR, alpha);
 	        ((Graphics2D) g).setComposite(comp);
 	       
 			if (id != 0)
 			{
 				
 				 g.drawImage(texture.SpriteSheet[id][dataTag],x-item_width_c/2,y-item_width_c/2,item_width_c,item_width_c,null);
-				 g.drawRect(x-item_width_c/2,y-item_width_c/2,item_width_c,item_width_c);
+				 //g.drawRect(x-item_width_c/2,y-item_width_c/2,item_width_c,item_width_c);
 			}
 
 			
@@ -73,16 +66,31 @@ public class Map
 	
 		public void drawDebug(Graphics g)
 		{
-			g.drawString("tick: "+String.valueOf(Time.tick),50, 50);
+			g.drawString("tick: "+String.valueOf(Time.tick),screen_px-50, 50);
 
 			for (int i = 0; i < maxPlayers; i++)
 			{
+
 				Player iPlayer =  playerList[i];
 
-				g.drawString("Camera"+String.valueOf(i)+"Angle: "+String.valueOf(iPlayer.camera.angle),screen_px-30+(100*i), 120);
-				g.drawString("Camera"+String.valueOf(i)+": "+String.valueOf(iPlayer.camera.x)+";"+String.valueOf(iPlayer.camera.y)+";"+String.valueOf(iPlayer.camera.z),screen_px-30+(100*i), 100);
-				g.drawString("Player"+String.valueOf(i)+": "+String.valueOf(iPlayer.x)+";"+String.valueOf(iPlayer.y)+";"+String.valueOf(iPlayer.z),screen_px-30+(100*i), 80);
-				g.drawString("Health "+String.valueOf(iPlayer.health),screen_px-30+(100*i), 60);
+				if (iPlayer.color == 2)
+				{
+					g.setColor(Color.RED);
+				}
+				else
+				{
+					g.setColor(Color.CYAN);
+				}
+
+
+
+				//g.drawString("Camera"+String.valueOf(i)+"Angle: "+String.valueOf(iPlayer.camera.angle),screen_px-30+(100*i), 120);
+				//g.drawString("Camera"+String.valueOf(i)+": "+String.valueOf(iPlayer.camera.x)+";"+String.valueOf(iPlayer.camera.y)+";"+String.valueOf(iPlayer.camera.z),screen_px-30+(100*i), 100);
+				//g.drawString("Player"+String.valueOf(i)+": "+String.valueOf(iPlayer.x)+";"+String.valueOf(iPlayer.y)+";"+String.valueOf(iPlayer.z),screen_px-30+(100*i), 40+530);
+
+
+				g.drawString("Player"+i+": Health: "+iPlayer.health+" Speed: "+iPlayer.speed+" Bomb size: "+iPlayer.bombSize+" Bomb amount: "+iPlayer.maxBombCount,screen_px-50, screen_py+430+(20*i));
+
 			}
 		}
 		
@@ -200,7 +208,7 @@ public class Map
 		
 		private void drawMap(Graphics g, Texture SpriteSheet, int cellX, int cellY, int cellZ, int cam_i, int cam_i1, int camX, int camY, int camX_rs, int camY_rs, Camera camera,boolean alpha,int cam_i2)
 		{
-			double item_width_c = Math.sqrt(Math.pow(item_width,2)+Math.pow(item_width,2))+2;
+			int item_width_c = item_width;
 			float padding_camera_x = cam_i-(camX-camX_rs);
 			float padding_camera_y = cam_i1-(camY-camY_rs);
 			float alphaValue = 1f;
@@ -248,8 +256,9 @@ public class Map
 	{
 		length = _length;
 		length_z = _length_z;
+
 		map = new Item[length][length][length_z];
-		//player1 = new Player(length-2,length-2,length_z-2);
+
 		maxPlayers = _maxPlayers;
 		playerList = new Player[maxPlayers];
 
@@ -338,24 +347,34 @@ public class Map
 						}
 					}
 					
-					if (i == 1 && i1 == 1 && i2 == 1)
+					/*if (i == length-2 && i1 == length-2 && i2 == length_z-2)
 					{
 						item.id = 0;
+					}*/
+
+					if (i > length-4 && i < length-1 && i1 > length-4 && i1 < length-1 && i2 == length_z-2)
+					{
+						if (i1 == length-3 && i == length-3)
+						{
+
+						}
+						else
+						{
+						item.id = 0;
+						}
 					}
-					
-					if (i == length-2 && i1 == length-2 && i2 == length_z-2)
+
+
+					if (i > 0 && i < 3 && i1 < 3 && i1 > 0 && i2 == 1)
 					{
+						if (i1 == 2 && i == 2)
+						{
+
+						}
+						else
+						{
 						item.id = 0;
-					}
-					
-					if (i1 == 1 || i1 == length-2)
-					{
-						item.id = 0;
-					}
-					
-					if (i == 1 || i == length-2)
-					{
-						item.id = 0;
+						}
 					}
 
 					

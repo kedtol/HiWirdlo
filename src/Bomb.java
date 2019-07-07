@@ -228,7 +228,17 @@ public class Bomb
 
 	private void setPowerUp (int direction, int speed)
 	{
-		PowerUp powerUp = new PowerUp();
+		PowerUp powerUp;
+		int random = (int)(Math.random() * 100 + 1);
+		if (random > 40)
+		{
+			powerUp = new PowerUp();
+		}
+		else
+		{
+			return;
+		}
+
 
 		switch(direction)
 		{

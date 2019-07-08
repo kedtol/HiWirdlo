@@ -54,7 +54,7 @@ public class Map
 			Composite comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , alpha );
 	        ((Graphics2D) g).setComposite(comp);
 	       
-			if (id != 0)
+			if (id != 0 && id != 5)
 			{
 				
 				 g.drawImage(texture.SpriteSheet[id][dataTag],x-item_width_c/2,y-item_width_c/2,item_width_c,item_width_c,null);

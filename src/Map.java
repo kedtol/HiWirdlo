@@ -262,169 +262,7 @@ public class Map
 		maxPlayers = _maxPlayers;
 		playerList = new Player[maxPlayers];
 
-		// fill playerList
-		for (int i = 0; i < maxPlayers; i++) {
-			Player iPlayer;
-			if (i == 0)
-			{
-				iPlayer =  new Player();
-			}
-			else
-			{
-				iPlayer =  new Player(length-2,length-2,length_z-2);
-			}
-
-
-			playerList[i] = iPlayer;
-		}
-
-
-		if (_generatorId == 1)
-		{
-			for (int i = 0; i < length; i++)
-			{
-				for (int i1 = 0; i1 < length; i1++)
-				{
-					for (int i2 = 0; i2 < length_z; i2++)
-					{
-					Item item = new Item();
-						int random = (int)(Math.random() * 100 + 1);
-						
-						if (random > 50)
-						{
-							if (random > 65)
-							{
-								item.id = 2;
-							}
-							else
-							{
-								random = (int)(Math.random() * 100 + 1);
-								item.id = 1;
-								if (random > 60)
-								{
-								item.dataTag = 1;
-								}
-								else
-								{
-								item.dataTag = 0;
-								}
-							}
-						}
-						else
-						{
-							item.id = 0;
-						}
-					map[i][i1][i2] = item;
-					System.out.println(map[i][i1][i2].id);
-					}
-				}
-			}
-		}
-		else
-		{
-			for (int i = 0; i < length; i++)
-			{
-				for (int i1 = 0; i1 < length; i1++)
-				{
-					for (int i2 = 0; i2 < length_z; i2++)
-					{
-					Item item = new Item();
-					
-					int random = (int)(Math.random() * 100 + 1);
-					
-					item.id = 2;
-					
-					if (i % 2 == 0 && i1 % 2 == 0)
-					{
-						item.id = 1;
-						if (random > 60)
-						{
-						item.dataTag = 1;
-						}
-						else
-						{
-						item.dataTag = 0;
-						}
-					}
-					
-					/*if (i == length-2 && i1 == length-2 && i2 == length_z-2)
-					{
-						item.id = 0;
-					}*/
-
-					if (i > length-4 && i < length-1 && i1 > length-4 && i1 < length-1 && i2 == length_z-2)
-					{
-						if (i1 == length-3 && i == length-3)
-						{
-
-						}
-						else
-						{
-						item.id = 0;
-						}
-					}
-
-
-					if (i > 0 && i < 3 && i1 < 3 && i1 > 0 && i2 == 1)
-					{
-						if (i1 == 2 && i == 2)
-						{
-
-						}
-						else
-						{
-						item.id = 0;
-						}
-					}
-
-					
-					if (i == 0 || i == length-1)
-					{
-						item.id = 1;
-						if (random > 60)
-						{
-						item.dataTag = 1;
-						}
-						else
-						{
-						item.dataTag = 0;
-						}
-					}
-					
-					if (i1 == 0 || i1 == length-1)
-					{
-						item.id = 1;
-						if (random > 60)
-						{
-							item.dataTag = 1;
-						}
-						else
-						{
-							item.dataTag = 0;
-						}
-					}
-					
-					if (i2 == 0 || i2 == length_z-1)
-					{
-						item.id = 1;
-						if (random > 60)
-						{
-							item.dataTag = 1;
-						}
-						else
-						{
-							item.dataTag = 0;
-						}
-					}
-					
-					
-					
-					map[i][i1][i2] = item;
-					System.out.println(map[i][i1][i2].id);
-					}
-				}
-			}
-		}
+		generate(_generatorId);
 	}
 
 	public static void setItem(int _x, int _y, int _z, int _contain, int _dataTag, Bomb _bomb, boolean _hasBomb, PowerUp _powerUp, boolean _hasPowerUp)
@@ -506,6 +344,173 @@ public class Map
 				iPlayer.camera.drawMapOrder(g, _texture,iPlayer.camera,false);
 			}
 
+		}
+	}
+
+	public void generate(int _generatorId)
+	{
+		// fill playerList
+		for (int i = 0; i < maxPlayers; i++) {
+			Player iPlayer;
+			if (i == 0)
+			{
+				iPlayer =  new Player();
+			}
+			else
+			{
+				iPlayer =  new Player(length-2,length-2,length_z-2);
+			}
+
+
+			playerList[i] = iPlayer;
+		}
+
+
+		if (_generatorId == 1)
+		{
+			for (int i = 0; i < length; i++)
+			{
+				for (int i1 = 0; i1 < length; i1++)
+				{
+					for (int i2 = 0; i2 < length_z; i2++)
+					{
+						Item item = new Item();
+						int random = (int)(Math.random() * 100 + 1);
+
+						if (random > 50)
+						{
+							if (random > 65)
+							{
+								item.id = 2;
+							}
+							else
+							{
+								random = (int)(Math.random() * 100 + 1);
+								item.id = 1;
+								if (random > 60)
+								{
+									item.dataTag = 1;
+								}
+								else
+								{
+									item.dataTag = 0;
+								}
+							}
+						}
+						else
+						{
+							item.id = 0;
+						}
+						map[i][i1][i2] = item;
+						System.out.println(map[i][i1][i2].id);
+					}
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i < length; i++)
+			{
+				for (int i1 = 0; i1 < length; i1++)
+				{
+					for (int i2 = 0; i2 < length_z; i2++)
+					{
+						Item item = new Item();
+
+						int random = (int)(Math.random() * 100 + 1);
+
+						item.id = 2;
+
+						if (i % 2 == 0 && i1 % 2 == 0)
+						{
+							item.id = 1;
+							if (random > 60)
+							{
+								item.dataTag = 1;
+							}
+							else
+							{
+								item.dataTag = 0;
+							}
+						}
+
+					/*if (i == length-2 && i1 == length-2 && i2 == length_z-2)
+					{
+						item.id = 0;
+					}*/
+
+						if (i > length-4 && i < length-1 && i1 > length-4 && i1 < length-1 && i2 == length_z-2)
+						{
+							if (i1 == length-3 && i == length-3)
+							{
+
+							}
+							else
+							{
+								item.id = 0;
+							}
+						}
+
+
+						if (i > 0 && i < 3 && i1 < 3 && i1 > 0 && i2 == 1)
+						{
+							if (i1 == 2 && i == 2)
+							{
+
+							}
+							else
+							{
+								item.id = 0;
+							}
+						}
+
+
+						if (i == 0 || i == length-1)
+						{
+							item.id = 1;
+							if (random > 60)
+							{
+								item.dataTag = 1;
+							}
+							else
+							{
+								item.dataTag = 0;
+							}
+						}
+
+						if (i1 == 0 || i1 == length-1)
+						{
+							item.id = 1;
+							if (random > 60)
+							{
+								item.dataTag = 1;
+							}
+							else
+							{
+								item.dataTag = 0;
+							}
+						}
+
+						if (i2 == 0 || i2 == length_z-1)
+						{
+							item.id = 1;
+							if (random > 60)
+							{
+								item.dataTag = 1;
+							}
+							else
+							{
+								item.dataTag = 0;
+							}
+						}
+
+
+
+						map[i][i1][i2] = item;
+						System.out.println(map[i][i1][i2].id);
+					}
+				}
+			}
 		}
 	}
 }

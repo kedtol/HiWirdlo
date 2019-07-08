@@ -10,7 +10,7 @@ public class Game
 	
 	public Game()
 	{
-		map = new Map(21,21,0,2);
+		map = new Map(15,15,0,2);
 		
 	}
 	
@@ -53,8 +53,9 @@ public class Game
 	
 	public void restart(int generator)
 	{
-		map = new Map(21,21,generator,2);
-		
+		map.generate(generator);
+		Time.tick = 0;
+		Time.fullTick = 0;
 	}
 	
 	public void tickMove()

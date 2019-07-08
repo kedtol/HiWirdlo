@@ -15,7 +15,7 @@ public class PowerUp
         {
             if (random > 40)
             {
-                type = 1;
+                type = 4;
             }
             else
             {
@@ -31,7 +31,7 @@ public class PowerUp
                     }
                     else
                     {
-                        type = 4;
+                        type = 1;
                     }
                 }
             }

@@ -230,7 +230,7 @@ public class Bomb
 	{
 		PowerUp powerUp;
 		int random = (int)(Math.random() * 100 + 1);
-		if (random > 40)
+		if (random > 80)
 		{
 			powerUp = new PowerUp();
 		}

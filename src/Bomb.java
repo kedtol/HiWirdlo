@@ -48,16 +48,16 @@ public class Bomb
 				{
 					if (explosionIndex[0] == 0)
 					{
-						if (collide(0,0,0) == 1)
-						{
+						//if (collide(0,0,0) == 1)
+						//{
 							setExplosion(0,0);
-						}
+						/*}
 						else
 						{
 							System.out.println("systemTick - bomb disarmed");
 							iPlayer.bombCount -= 1;
 							map[x][y][z].hasBomb = false;
-						}
+						}*/
 						explosionIndex[0] = 1;
 						explosionIndex[1] = 1;
 						explosionIndex[2] = 1;

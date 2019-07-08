@@ -338,7 +338,7 @@ public class Player
 
 	private void placeBomb()
 	{
-		if (bombCount < maxBombCount)
+		if (bombCount < maxBombCount && Map.map[x][y][z].hasBomb == false)
 		{
 			Bomb bomb = new Bomb();
 			bomb.x = x;

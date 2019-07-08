@@ -147,7 +147,7 @@ public class Player
 	{
 		if (move == true)
 		{
-			if (direction > 0 && collide(direction,1,1) == false && collide(direction,1,8) == false && collide(direction,1,2) == false) //speed kell majd késõbbiekben
+			if (direction > 0 && collide(direction,1,1) == false && collide(direction,1,5) == false && collide(direction,1,2) == false) //speed kell majd késõbbiekben
 			{
 				if (alarm.finished() == true)
 				{
@@ -351,7 +351,7 @@ public class Player
 				bomb.bombDirection = 6;
 			}
 
-			Map.setItem(x, y, z, 0, 0, bomb, true, null, false);
+			Map.setItem(x, y, z, 5, 0, bomb, true, null, false);
 			System.out.println("bomb");
 			bombCount += 1;
 		}

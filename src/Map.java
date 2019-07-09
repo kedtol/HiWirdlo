@@ -54,7 +54,7 @@ public class Map
             Composite comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , alpha );
             ((Graphics2D) g).setComposite(comp);
 
-            if (id != 0 && id != 5)
+            if (id != 0)
             {
 
                 g.drawImage(texture.SpriteSheet[id][dataTag],x-item_width_c/2,y-item_width_c/2,item_width_c,item_width_c,null);
@@ -236,6 +236,8 @@ public class Map
                 drawItemTexture(g,screen_px+(int)(padding_camera_x*item_width_c)+camera.drawPadding,screen_py+(int)(padding_camera_y * item_width_c),6, map[cellX][cellY][cellZ].powerUp.type,SpriteSheet,alphaValue);
             }
 
+            drawItemTexture(g,screen_px+(int)(padding_camera_x*item_width_c)+camera.drawPadding,screen_py+(int)(padding_camera_y * item_width_c),map[cellX][cellY][cellZ].id,map[cellX][cellY][cellZ].dataTag,SpriteSheet,alphaValue);
+
             for (int i = 0; i < maxPlayers; i++)
             {
                 Player iPlayer = playerList[i];
@@ -246,7 +248,7 @@ public class Map
                     }
                 }
             }
-            drawItemTexture(g,screen_px+(int)(padding_camera_x*item_width_c)+camera.drawPadding,screen_py+(int)(padding_camera_y * item_width_c),map[cellX][cellY][cellZ].id,map[cellX][cellY][cellZ].dataTag,SpriteSheet,alphaValue);
+
             //drawItemTexture(g,screen_px+padding_camera_x*((int) item_width_c)+camera.drawPadding,screen_py+padding_camera_y *((int) item_width_c),map[cellX][cellY][cellZ].id,SpriteSheet,alphaValue);
         }
 

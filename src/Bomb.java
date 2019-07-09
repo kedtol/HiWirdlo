@@ -12,7 +12,7 @@ public class Bomb
 	int bombDirection = 4;
 
 	private Alarm alarm = new Alarm();
-	
+
 	public Bomb()
 	{
 		x = 0;
@@ -35,7 +35,7 @@ public class Bomb
 		explosion = true;
 
 	}
-	
+
 	public void explode()
 	{
 		System.out.println(alarm.getState());
@@ -50,7 +50,7 @@ public class Bomb
 					{
 						//if (collide(0,0,0) == 1)
 						//{
-							setExplosion(0,0);
+						setExplosion(0,0);
 						/*}
 						else
 						{
@@ -69,19 +69,19 @@ public class Bomb
 					{
 						for (int i = 0; i < bombDirection; i++)
 						{
-							
+
 							if (explosionIndex[i] != -1 && explosionIndex[i] <= size)
 							{
 								if (collide(i+1, explosionIndex[i],0) == 1)
 								{
-								setExplosion(i+1, explosionIndex[i]);
+									setExplosion(i+1, explosionIndex[i]);
 								}
 								else
 								{
 									if (collide(i+1, explosionIndex[i],2) == 1)
 									{
-									setExplosion(i+1, explosionIndex[i]);
-									setPowerUp(i+1, explosionIndex[i]);
+										setExplosion(i+1, explosionIndex[i]);
+										setPowerUp(i+1, explosionIndex[i]);
 									}
 									explosionIndex[i] = -1;
 								}
@@ -95,7 +95,7 @@ public class Bomb
 						{
 							if (explosionIndex[i] != -1)
 							{
-							explosionIndex[i]+= 1;
+								explosionIndex[i]+= 1;
 							}
 						}
 						if (bombDirection == 4)
@@ -113,12 +113,12 @@ public class Bomb
 				alarm.start();
 
 			}
-			
+
 			explosion = false;
 
 		}
-		
-		
+
+
 		if (explosion == false && alarm.finished() == true)
 		{
 			explosionIndex[0] = 0;
@@ -160,14 +160,14 @@ public class Bomb
 						else
 						{
 							explosionIndex[i] = -1;
-							
+
 						}
 					}
 					for (int i = 0; i < bombDirection; i++)
 					{
 						if (explosionIndex[i] != -1)
 						{
-						explosionIndex[i]+= 1;
+							explosionIndex[i]+= 1;
 						}
 					}
 				}
@@ -177,7 +177,7 @@ public class Bomb
 			map[x][y][z].hasBomb = false;
 		}
 	}
-	
+
 	private void setExplosion (int direction, int speed)
 	{
 		switch(direction)
@@ -186,43 +186,43 @@ public class Bomb
 				map[x][y-speed][z].id = 3;
 				map[x][y-speed][z].dataTag = 0;
 				map[x][y-speed][z].planted = created;
-			break;
+				break;
 
 			case 4: //down
 				map[x][y+speed][z].id = 3;
 				map[x][y+speed][z].dataTag = 0;
 				map[x][y+speed][z].planted = created;
-			break;
+				break;
 
 			case 3: //left
 				map[x-speed][y][z].id = 3;
 				map[x-speed][y][z].dataTag = 1;
 				map[x-speed][y][z].planted = created;
-			break;
+				break;
 
 			case 1: //right
 				map[x+speed][y][z].id = 3;
 				map[x+speed][y][z].dataTag = 1;
 				map[x+speed][y][z].planted = created;
-			break;
+				break;
 
 			case 5: //z up
 				map[x][y][z-speed].id = 3;
 				map[x][y][z-speed].dataTag = 3;
 				map[x][y][z-speed].planted = created;
-			break;
+				break;
 
 			case 6: //z down
 				map[x][y][z+speed].id = 3;
 				map[x][y][z+speed].dataTag = 3;
 				map[x][y][z+speed].planted = created;
-			break;
+				break;
 
 			case 0: //none
 				map[x][y][z].id = 3;
 				map[x][y][z].dataTag = 2;
 				map[x][y][z].planted = created;
-			break;
+				break;
 		}
 	}
 
@@ -279,41 +279,41 @@ public class Bomb
 
 		}
 	}
-	
+
 	private void setClear (int direction, int speed)
 	{
 		switch(direction)
 		{
 			case 2: //up
 				map[x][y-speed][z].id = 0;
-			break;
-			
+				break;
+
 			case 4: //down 
 				map[x][y+speed][z].id = 0;
-			break;
-							
+				break;
+
 			case 3: //left
 				map[x-speed][y][z].id = 0;
-			break;
-			
+				break;
+
 			case 1: //right
 				map[x+speed][y][z].id = 0;
-			break;
-			
+				break;
+
 			case 5: //z up
 				map[x][y][z-speed].id = 0;
-			break;
-			
+				break;
+
 			case 6: //z down
 				map[x][y][z+speed].id = 0;
-			break;
-			
+				break;
+
 			case 0: //none
 				map[x][y][z].id = 0;
-			break;
-		}	
+				break;
+		}
 	}
-	
+
 	private int collide(int direction, int speed, int id)
 	{
 		switch(direction)
@@ -330,8 +330,8 @@ public class Bomb
 						return 1;
 					}
 				}
-			break;
-			
+				break;
+
 			case 4: //down 
 				if (y+speed > Map.length-1)
 				{
@@ -344,8 +344,8 @@ public class Bomb
 						return 1;
 					}
 				}
-			break;
-							
+				break;
+
 			case 3: //left
 				if (x-speed < 0)
 				{
@@ -358,8 +358,8 @@ public class Bomb
 						return 1;
 					}
 				}
-			break;
-			
+				break;
+
 			case 1: //right
 				if (x+speed > Map.length-1)
 				{
@@ -372,8 +372,8 @@ public class Bomb
 						return 1;
 					}
 				}
-			break;
-			
+				break;
+
 			case 5: //z up
 				if (z-speed < 0)
 				{
@@ -386,8 +386,8 @@ public class Bomb
 						return 1;
 					}
 				}
-			break;
-			
+				break;
+
 			case 6: //z down
 				if (z+speed > Map.length_z-1)
 				{
@@ -400,15 +400,15 @@ public class Bomb
 						return 1;
 					}
 				}
-			break;
-			
+				break;
+
 			case 0: //none
 				if (map[x][y][z].id == id)
 				{
 					return 1;
 				}
-			break;
-		}	
+				break;
+		}
 		return 0;
 	}
 }

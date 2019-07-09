@@ -20,7 +20,7 @@ public class Player
 
 	public Camera camera;
 	private Alarm alarm = new Alarm();
-	
+
 	public Player(int _x, int _y,int _z)
 	{
 		color = 1;
@@ -38,7 +38,7 @@ public class Player
 
 		alarm.setLength(speed);
 	}
-	
+
 	public Player()
 	{
 		color = 2;
@@ -56,7 +56,7 @@ public class Player
 
 		alarm.setLength(speed);
 	}
-	
+
 	private boolean collide(int direction,int speed, int id)
 	{
 		switch(direction)
@@ -66,53 +66,53 @@ public class Player
 				{
 					return true;
 				}
-			break;
-		
+				break;
+
 			case 2: //left y
 				if (y-speed < 0 || Map.map[x][y-speed][z].id == id)
 				{
 					return true;
 				}
-			break;
-			
+				break;
+
 			case 4: //right y
 				if (y+speed > Map.length-1 || Map.map[x][y+speed][z].id == id)
 				{
 					return true;
 				}
-			break;
-							
+				break;
+
 			case 3: //left x
 				if (x-speed < 0 || Map.map[x-speed][y][z].id == id)
 				{
 					return true;
 				}
-			break;
-			
+				break;
+
 			case 1: //right x
 				if (x+speed > Map.length-1 || Map.map[x+speed][y][z].id == id)
 				{
 					return true;
 				}
-			break;
-			
+				break;
+
 			case 5: //left z
 				if (z-speed < 0 || Map.map[x][y][z-speed].id == id)
 				{
 					return true;
 				}
-			break;
-			
+				break;
+
 			case 6: //right z
 				if (z+speed > Map.length_z-1 || Map.map[x][y][z+speed].id == id)
 				{
 					return true;
 				}
-			break;
-		}	
+				break;
+		}
 		return false;
 	}
-	
+
 	public void collision()
 	{
 		if (collide(0,1,3) == true)
@@ -121,7 +121,7 @@ public class Player
 			{
 				health -= 1;
 			}
-			
+
 			damage = true;
 		}
 		else
@@ -151,8 +151,8 @@ public class Player
 			{
 				if (alarm.finished() == true)
 				{
-				moveDirection(direction,follow);
-				alarm.start();
+					moveDirection(direction,follow);
+					alarm.start();
 				}
 			}
 			else
@@ -176,51 +176,51 @@ public class Player
 				case 0:
 					direction = camera.calculateRelativeAngle(2);
 					move = true;
-				break;
-				
+					break;
+
 				case 1:
 					direction = camera.calculateRelativeAngle(4);
 					move = true;
-				break;
-								
+					break;
+
 				case 2:
 					direction = camera.calculateRelativeAngle(3);
 					move = true;
-				break;
-				
+					break;
+
 				case 3:
 					direction = camera.calculateRelativeAngle(1);
 					move = true;
-				break;
-				
+					break;
+
 				case 5:
 					direction = camera.calculateRelativeAngle(5);
 					move = true;
-				break;
-				
+					break;
+
 				case 4:
 					direction = camera.calculateRelativeAngle(6);
 					move = true;
-				break;
-				
+					break;
+
 				case 6:
 					if (camera.angle < 2)
 					{
 						camera.angle += 1;
-						
+
 					}
 					else
 					{
 						camera.angle = 0;
 					}
-					
+
 					if (follow == true)
 					{
 						camera.follow(this);
 					}
 					direction = 0;
-				break;
-				
+					break;
+
 				case 7:
 					if (camera.angle > 0)
 					{
@@ -230,106 +230,106 @@ public class Player
 					{
 						camera.angle = 2;
 					}
-					
+
 					if (follow == true)
 					{
 						camera.follow(this);
 					}
 					direction = 0;
-				break;
-				
+					break;
+
 				case 8:
 					placeBomb();
 					direction = 0;
-				break;
-				
-			}	
+					break;
+
+			}
 		}
-		
+
 	}
 
 	private void moveDirection(int direction,boolean follow)
-	{	
+	{
 		switch(direction)
 		{
 			case 2:
-				
+
 				if (y-1 > 0)
 				{
-				y -= 1;	
+					y -= 1;
 				}
 				else
 				{
-				y = 0;
+					y = 0;
 				}
-				
-			break;
-			
+
+				break;
+
 			case 4:
-				
+
 				if (y+1 < Map.length)
-				{				
-				y += 1;	
-				}		
+				{
+					y += 1;
+				}
 				else
 				{
-				y = Map.length;
+					y = Map.length;
 				}
-				
-			break;
-							
+
+				break;
+
 			case 3:
-				
+
 				if (x-1 > 0)
 				{
-				x -= 1;	
+					x -= 1;
 				}
 				else
 				{
-				x = 0;
+					x = 0;
 				}
-				
-			break;
-			
+
+				break;
+
 			case 1:
-				
+
 				if (x+1 < Map.length)
 				{
-				x += 1;	
+					x += 1;
 				}
 				else
 				{
-				x = Map.length;
+					x = Map.length;
 				}
-				
-			break;
-			
+
+				break;
+
 			case 5:
-				
+
 				if (z-1 > 0)
 				{
-				z -= 1;	
+					z -= 1;
 				}
 				else
 				{
-				z = 0;
+					z = 0;
 				}
-				
-			break;
-			
+
+				break;
+
 			case 6:
-				
+
 				if (z+1 < Map.length_z-1)
 				{
-				z += 1;	
+					z += 1;
 				}
 				else
 				{
-				z = Map.length_z-1;
+					z = Map.length_z-1;
 				}
-				
-			break;
-		}	
+
+				break;
+		}
 		if (follow == true)
 		{
 			camera.follow(this);
@@ -367,7 +367,7 @@ public class Player
 					speed -= 0.05f;
 					alarm.setLength(speed);
 				}
-			break;
+				break;
 
 			case 1:
 
@@ -375,7 +375,7 @@ public class Player
 				{
 					maxBombCount += 1;
 				}
-			break;
+				break;
 
 			case 2:
 				if (bombSize < 6)
@@ -384,19 +384,19 @@ public class Player
 				}
 
 
-			break;
+				break;
 
 			case 3:
 
 				bombPush = true;
 
-			break;
+				break;
 
 			case 4:
 
 				bombFDirection = true;
 
-			break;
+				break;
 		}
 	}
 }

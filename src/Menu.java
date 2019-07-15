@@ -1,5 +1,4 @@
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -14,7 +13,7 @@ import javax.swing.JPanel;
 public class Menu extends JPanel
 {
 	private int ablakSize;
-	
+	public boolean visible = true;
 	private int mouseX, mouseY;
 	//private JTextField jt = new JTextField("RANDOMSZARNEMEMEMEEMEMGY");
 	private JButton jb = new JButton("HITME");
@@ -38,7 +37,7 @@ public class Menu extends JPanel
 	
 	public void Loop() throws InterruptedException
 	{
-		while(true)
+		while(visible == true)
 		{
 			repaint();
 			
@@ -129,7 +128,7 @@ public class Menu extends JPanel
 			{
 				case KeyEvent.VK_UP:
 					
-					box_y -= 5;	
+					box_y -= 5;
 					
 				break;
 				
@@ -174,7 +173,15 @@ public class Menu extends JPanel
 		@Override
 		public void actionPerformed(ActionEvent arg0) 
 		{
-			int x_calc_rand = (int) ((ablakSize-jb.getWidth())*Math.random());
+			visible = false;
+
+			Main.mf.remove(Main.m);
+			Main.mf.add(Main.game,BorderLayout.CENTER);
+			Main.mf.pack();
+			Main.mf.setSize(new Dimension(ablakSize*2-160,ablakSize));
+
+
+			/*int x_calc_rand = (int) ((ablakSize-jb.getWidth())*Math.random());
 			while (x_calc_rand <= 0)
 			{
 			x_calc_rand = (int) ((ablakSize-jb.getWidth())*Math.random());
@@ -186,7 +193,7 @@ public class Menu extends JPanel
 			y_calc_rand = (int) ((ablakSize-jb.getHeight())*Math.random());
 			}
 			
-			jb.setBounds(x_calc_rand, y_calc_rand, jb.getWidth(), jb.getHeight());
+			jb.setBounds(x_calc_rand, y_calc_rand, jb.getWidth(), jb.getHeight());*/
 		}
 		
 	}
@@ -197,12 +204,12 @@ public class Menu extends JPanel
 		@Override
 		public void mouseClicked(MouseEvent arg0) 
 		{
-			
+
 		}
 
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
-			int x_calc_rand = (int) ((ablakSize-jb.getWidth())*Math.random());
+			/*int x_calc_rand = (int) ((ablakSize-jb.getWidth())*Math.random());
 			while (x_calc_rand <= 0)
 			{
 			x_calc_rand = (int) ((ablakSize-jb.getWidth())*Math.random());
@@ -214,7 +221,7 @@ public class Menu extends JPanel
 			y_calc_rand = (int) ((ablakSize-jb.getHeight())*Math.random());
 			}
 			
-			jb.setBounds(x_calc_rand, y_calc_rand, jb.getWidth(), jb.getHeight());
+			jb.setBounds(x_calc_rand, y_calc_rand, jb.getWidth(), jb.getHeight());*/
 		}
 
 		@Override

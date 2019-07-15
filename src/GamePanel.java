@@ -19,7 +19,7 @@ import javax.swing.KeyStroke;
 public class GamePanel extends JPanel
 {
 	private int ablakSize;
-	
+	public  boolean visible = false;
 	private int mouseX, mouseY;
 	private JTextField jt = new JTextField("vince egy szar");
 	private JButton jb = new JButton("New RANDOM");

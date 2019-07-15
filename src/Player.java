@@ -362,9 +362,9 @@ public class Player
 		switch (type)
 		{
 			case 0:
-				if (speed > 0.15f)
+				if (speed > 0.1f)
 				{
-					speed -= 0.05f;
+					speed -= 0.025f;
 					alarm.setLength(speed);
 				}
 				break;

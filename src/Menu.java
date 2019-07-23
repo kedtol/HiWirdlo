@@ -1,37 +1,60 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class Menu extends JPanel
 {
 	private int ablakSize;
-	public boolean visible = true;
-	private int mouseX, mouseY;
-	//private JTextField jt = new JTextField("RANDOMSZARNEMEMEMEEMEMGY");
-	private JButton jb = new JButton("HITME");
+	public boolean visible = true;;
+
+	private JLabel jl = new JLabel("Bomberman 3d");
+	private JButton jb_start = new JButton("Start local match");
+	private JButton jb_host = new JButton("Host online match");
+	private JTextField jt_ip = new JTextField("127.0.0.1");
+	private JLabel jl_ip = new JLabel("Ip:");
+
+	private JButton jb_join = new JButton("Join online match");
+	private int v_x = (int)((ablakSize*2-160)*Math.random());
+	private int v_y = (int)((ablakSize)*Math.random());
 	private int box_x = 450;
-	private int box_y = 450;
-	
+	private int box_y = (int)((ablakSize-40)*Math.random());
+	private GridBagLayout Jlayout = new GridBagLayout();
+
 	public Menu(int _ablakSize)
 	{
 		ablakSize = _ablakSize;
-		
-		//this.add(jt);
-		this.add(jb);
-		jb.addActionListener(new myActionListener());
-		this.addMouseMotionListener(new myMouseMotionListener());
-		this.addMouseListener(new myMouseListener());
-		jb.addMouseListener(new my1MouseListener());
-		jb.addKeyListener(new myKeyListener());
-		
+		setLayout(Jlayout);
+		GridBagConstraints gbc = new GridBagConstraints();
+		jt_ip.setPreferredSize(new Dimension(100, 22));
+		jt_ip.setMaximumSize(new Dimension(40,40));
+		jl_ip.setForeground(Color.white);
+		jl.setForeground(Color.white);
+		gbc.insets = new Insets(5,5,5,5);
+
+		this.add(Box.createHorizontalStrut(25));
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		this.add(jl,gbc);
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		this.add(jb_start,gbc);
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		this.add(jb_host,gbc);
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		this.add(jb_join,gbc);
+		gbc.gridx = 1;
+		gbc.gridy = 3;
+		this.add(jl_ip,gbc);
+		gbc.gridx = 2;
+		gbc.gridy = 3;
+		this.add(jt_ip,gbc);
+		this.add(Box.createVerticalStrut(50));
+		jb_start.addActionListener(new myActionListener());
+
 		//this.addKeyListener(new myKeyListener());
 	}
 	
@@ -40,7 +63,17 @@ public class Menu extends JPanel
 		while(visible == true)
 		{
 			repaint();
-			
+			if (box_x < ablakSize*2-160)
+			{
+				box_x += 5;
+			}
+			else
+			{
+				box_x = -40;
+				box_y = (int)((ablakSize-40)*Math.random());
+				v_x = (int)((ablakSize*2-160)*Math.random());
+				v_y = (int)((ablakSize)*Math.random());
+			}
 			Thread.sleep(16);
 			
 		}
@@ -52,119 +85,13 @@ public class Menu extends JPanel
 	public void paintComponent(Graphics g)
 	{
 		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, ablakSize, ablakSize);
-		g.drawString("APADAT", 100, 500);
+		g.fillRect(0, 0, ablakSize*2-160, ablakSize);
+
 		//System.out.println("PAINT "+System.currentTimeMillis());
 		
 		g.setColor(Color.CYAN);
-		String mPos = "Pos: " + mouseX + " " + mouseY;
-		g.drawString(mPos, mouseX, mouseY);
-
+		g.drawString("vekni sukk", v_x, v_y);
 		g.drawRect(box_x, box_y, 40, 40);
-	}
-	
-	
-	class myMouseMotionListener implements MouseMotionListener
-	{
-
-		@Override
-		public void mouseDragged(MouseEvent e) 
-		{
-	
-		}
-
-		@Override
-		public void mouseMoved(MouseEvent e) 
-		{
-			mouseX = e.getX();
-			mouseY = e.getY();
-		}
-		
-	}
-	
-	class myMouseListener implements MouseListener
-	{
-
-		@Override
-		public void mouseClicked(MouseEvent arg0) 
-		{
-			
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent arg0) {
-			
-		}
-
-		@Override
-		public void mouseExited(MouseEvent arg0) {
-			
-		}
-
-		@Override
-		public void mousePressed(MouseEvent arg0) {
-			if(arg0.getButton() == MouseEvent.BUTTON1)
-			{
-			//	jt.setText("BALLENYOMVA");
-			}
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent arg0) {
-		//	jt.setText("RELEASED");
-		}
-		
-	}
-	
-	class myKeyListener implements KeyListener
-	{
-
-		@Override
-		public void keyPressed(KeyEvent arg0) 
-		{
-			
-			System.out.println("pressed: " + arg0.getKeyCode());
-			switch(arg0.getKeyCode())
-			{
-				case KeyEvent.VK_UP:
-					
-					box_y -= 5;
-					
-				break;
-				
-				case KeyEvent.VK_DOWN:
-									
-					box_y +=  5;
-									
-				break;
-								
-				case KeyEvent.VK_LEFT:
-					
-					box_x -= 5;
-					
-				break;
-				
-				case KeyEvent.VK_RIGHT:
-					
-					box_x += 5;	
-				break;
-			}	
-			
-		}
-
-		@Override
-		public void keyReleased(KeyEvent arg0) {
-			System.out.println("released: " + arg0.getKeyCode());
-		}
-
-		@Override
-		public void keyTyped(KeyEvent arg0) 
-		{
-			
-			System.out.println("typed: " + arg0.getKeyCode());
-			
-		}
-		
 	}
 	
 	class myActionListener implements ActionListener
@@ -181,67 +108,8 @@ public class Menu extends JPanel
 			Main.mf.setSize(new Dimension(ablakSize*2-160,ablakSize));
 
 
-			/*int x_calc_rand = (int) ((ablakSize-jb.getWidth())*Math.random());
-			while (x_calc_rand <= 0)
-			{
-			x_calc_rand = (int) ((ablakSize-jb.getWidth())*Math.random());
-			}
-			
-			int y_calc_rand = (int) ((ablakSize-jb.getHeight())*Math.random());
-			while (y_calc_rand <= 0)
-			{
-			y_calc_rand = (int) ((ablakSize-jb.getHeight())*Math.random());
-			}
-			
-			jb.setBounds(x_calc_rand, y_calc_rand, jb.getWidth(), jb.getHeight());*/
 		}
 		
 	}
-	
-	class my1MouseListener implements MouseListener
-	{
 
-		@Override
-		public void mouseClicked(MouseEvent arg0) 
-		{
-
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent arg0) {
-			/*int x_calc_rand = (int) ((ablakSize-jb.getWidth())*Math.random());
-			while (x_calc_rand <= 0)
-			{
-			x_calc_rand = (int) ((ablakSize-jb.getWidth())*Math.random());
-			}
-			
-			int y_calc_rand = (int) ((ablakSize-jb.getHeight())*Math.random());
-			while (y_calc_rand <= 0)
-			{
-			y_calc_rand = (int) ((ablakSize-jb.getHeight())*Math.random());
-			}
-			
-			jb.setBounds(x_calc_rand, y_calc_rand, jb.getWidth(), jb.getHeight());*/
-		}
-
-		@Override
-		public void mouseExited(MouseEvent arg0) {
-			
-		}
-
-		@Override
-		public void mousePressed(MouseEvent arg0) {
-			if(arg0.getButton() == MouseEvent.BUTTON1)
-			{
-			//	jt.setText("BALLENYOMVA");
-			}
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent arg0) {
-			//jt.setText("RELEASED");
-		}
-		
-	}
-	
 }

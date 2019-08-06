@@ -13,19 +13,21 @@ public class PowerUp
         }
         else
         {
-            if (random > 40)
+            random = (int)(Math.random() * 100 + 1);
+
+            if (random > 60)
             {
                 type = 4;
             }
             else
             {
-                if (random > 10)
+                if (random > 30)
                 {
                     type = 2;
                 }
                 else
                 {
-                    if (random > 5)
+                    if (random > 15)
                     {
                         type = 3;
                     }

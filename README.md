@@ -8,6 +8,7 @@ This project supports 3d gameworlds.
  - Player: It can move in all 6 directions.
  - Camera: Currently shows 2 axles at the same time, but you can choose which are those.
  - Power Ups: We've got 5 power ups currently - Speed boost,Bomb bag,Bomb strength booster,Bomb pushing, and 3d bombs.
+ - Note: bomb pushing doesn't work thanks to gitHub... (rip bomb push commit)
  - Map: Random or fix.
 
 # Todo:

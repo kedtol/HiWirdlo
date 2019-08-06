@@ -7,7 +7,7 @@ public class PowerUp
     {
         int random = (int)(Math.random() * 100 + 1);
 
-        if (random > 70)
+        if (random < 20)
         {
             type = 0;
         }

@@ -89,7 +89,7 @@ public class Map
                 //g.drawString("Player"+String.valueOf(i)+": "+String.valueOf(iPlayer.x)+";"+String.valueOf(iPlayer.y)+";"+String.valueOf(iPlayer.z),screen_px-30+(100*i), 40+530);
 
 
-                g.drawString("Player"+i+": Health: "+iPlayer.health+" Speed: "+iPlayer.speed+" Bomb size: "+iPlayer.bombSize+" Bomb amount: "+iPlayer.maxBombCount,screen_px-50, screen_py+430+(20*i));
+                g.drawString("Player"+i+": Health: "+iPlayer.health+" Speed: "+iPlayer.speed+" Bomb size: "+iPlayer.bombSize+" Bomb amount: "+iPlayer.maxBombCount+" Bomb push: "+iPlayer.bombPush,screen_px-50, screen_py+430+(20*i));
 
             }
         }
@@ -236,7 +236,11 @@ public class Map
                 drawItemTexture(g,screen_px+(int)(padding_camera_x*item_width_c)+camera.drawPadding,screen_py+(int)(padding_camera_y * item_width_c),6, map[cellX][cellY][cellZ].powerUp.type,SpriteSheet,alphaValue);
             }
 
-            drawItemTexture(g,screen_px+(int)(padding_camera_x*item_width_c)+camera.drawPadding,screen_py+(int)(padding_camera_y * item_width_c),map[cellX][cellY][cellZ].id,map[cellX][cellY][cellZ].dataTag,SpriteSheet,alphaValue);
+            if (map[cellX][cellY][cellZ].id != 5)
+            {
+                drawItemTexture(g,screen_px+(int)(padding_camera_x*item_width_c)+camera.drawPadding,screen_py+(int)(padding_camera_y * item_width_c),map[cellX][cellY][cellZ].id,map[cellX][cellY][cellZ].dataTag,SpriteSheet,alphaValue);
+            }
+
 
             for (int i = 0; i < maxPlayers; i++)
             {
@@ -283,6 +287,145 @@ public class Map
         map[_x][_y][_z] = item;
     }
 
+    public static void setItem(int _x, int _y, int _z, int _direction, int _speed, Item _item)
+    {
+        switch(_direction)
+        {
+            case 2: //left y
+
+                if (_y - _speed >= 0)
+                {
+                    map[_x][_y - _speed][_z] = _item;
+                }
+
+                break;
+
+            case 4: //right y
+
+                if (_y + _speed <= length-1)
+                {
+                    map[_x][_y + _speed][_z] = _item;
+                }
+
+                break;
+
+            case 3: //left x
+
+                if (_x - _speed >= 0)
+                {
+                    map[_x - _speed][_y][_z] = _item;
+                }
+
+                break;
+
+            case 1: //right x
+
+                if (_x + _speed <= length-1)
+                {
+                    map[_x + _speed][_y][_z] = _item;
+                }
+
+                break;
+
+            case 5: //left z
+
+                if (_z - _speed >= 0)
+                {
+                    map[_x][_y][_z - _speed] = _item;
+                }
+
+                break;
+
+            case 6: //right z
+
+                if (_z + _speed <= length_z-1)
+                {
+                    map[_x][_y][_z + _speed] = _item;
+                }
+
+                break;
+
+            case 0: //no direction
+
+                if (_z >= 0 && _x >= 0 && _y >= 0 && _z <= length_z && _x >= length && _y >= length)
+                {
+                    map[_x][_y][_z] = _item;
+                }
+
+                break;
+        }
+    }
+
+    public static Item getItem(int _x, int _y, int _z, int _direction,int _speed)
+    {
+        switch(_direction)
+        {
+            case 2: //left y
+
+                if (_y - _speed >= 0)
+                {
+                    return map[_x][_y - _speed][_z];
+                }
+
+            break;
+
+            case 4: //right y
+
+                if (_y + _speed <= length-1)
+                {
+                    return map[_x][_y + _speed][_z];
+                }
+
+            break;
+
+            case 3: //left x
+
+                if (_x - _speed >= 0)
+                {
+                    return map[_x - _speed][_y][_z];
+                }
+
+            break;
+
+            case 1: //right x
+
+                if (_x + _speed <= length-1)
+                {
+                    return map[_x + _speed][_y][_z];
+                }
+
+            break;
+
+            case 5: //left z
+
+                if (_z - _speed >= 0)
+                {
+                    return map[_x][_y][_z - _speed];
+                }
+
+            break;
+
+            case 6: //right z
+
+                if (_z + _speed <= length_z-1)
+                {
+                    return map[_x][_y][_z + _speed];
+                }
+
+            break;
+
+            case 0: //no direction
+
+                if (_z >= 0 && _x >= 0 && _y >= 0 && _z <= length_z && _x <= length && _y <= length)
+                {
+                    return map[_x][_y][_z];
+                }
+
+            break;
+        }
+        return null;
+    }
+
     private void itemMoveTick()
     {
         for (int i = 0; i < length; i++)
@@ -294,6 +437,7 @@ public class Map
                     if (map[i][i1][i2].hasBomb == true)
                     {
                         map[i][i1][i2].bomb.explode();
+                        map[i][i1][i2].bomb.moveForward();
                     }
 
                     if (map[i][i1][i2].id == 3)
@@ -379,7 +523,7 @@ public class Map
                         Item item = new Item();
                         int random = (int)(Math.random() * 100 + 1);
 
-                        if (random > 50)
+                        if (random > 75)
                         {
                             if (random > 65)
                             {

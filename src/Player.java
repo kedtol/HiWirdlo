@@ -157,6 +157,16 @@ public class Player
 			}
 			else
 			{
+				if (collide(direction,1,5) == true)
+				{
+					Map.Item myItem = Map.getItem(x,y,z,direction,1);
+					if (myItem != null)
+					{
+						myItem.bomb.direction = direction;
+						myItem.bomb.move = true;
+						Map.setItem(x, y, z, direction, 1, myItem);
+					}
+				}
 				move = false;
 			}
 		}

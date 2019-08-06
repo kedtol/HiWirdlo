@@ -20,28 +20,29 @@ public class GamePanel extends JPanel
 {
 	private int ablakSize;
 	public  boolean visible = false;
-	private int mouseX, mouseY;
 	private JTextField jt = new JTextField("vince egy szar");
 	private JButton jb = new JButton("New RANDOM");
 	private JButton jb1 = new JButton("New FIX");
-	private JCheckBox jcb = new JCheckBox("server");
+	//private JCheckBox jcb = new JCheckBox("server");
 	private boolean draw_text1 = true;
-	private Game game = new Game();
-	private Game game1 = new Game();
+	public Game game = new Game();
 	static JLabel bind = new JLabel();
 	static JLabel bind1 = new JLabel();
-	
+	public boolean server = false;
+	public boolean client = false;
+	public String ip = "127.0.0.1";
+
 	public GamePanel(int _ablakSize)
 	{
 		ablakSize = _ablakSize;
 		this.add(jt);
 		this.add(jb);
 		this.add(jb1);
-		this.add(jcb);
+		//this.add(jcb);
 		jb.addActionListener(new myActionListener());
 		jb1.addActionListener(new myActionListener1());
 		jt.addKeyListener(new myKeyListener());
-		jcb.addActionListener(new jcbActionListener());
+		//jcb.addActionListener(new jcbActionListener());
 		bindSetup();
 		this.add(bind);
 		this.add(bind1);
@@ -145,6 +146,14 @@ public class GamePanel extends JPanel
 		{
 			repaint();
 			game.tickMove();
+
+			if (visible == true)
+			{
+				game.serverState = server;
+				game.clientState = client;
+				game.ip = ip;
+			}
+
 			Thread.sleep(16);
 			
 			
@@ -224,21 +233,21 @@ public class GamePanel extends JPanel
 		
 	}
 	
-	class jcbActionListener implements ActionListener
+	/*class jcbActionListener implements ActionListener
 	{
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) 
 		{
-			if (game.serverState == false)
+			if (gamePanel.serverState == false)
 			{
-				game.serverState = true;
+				gamePanel.serverState = true;
 			}
 			else
 			{
-				game.serverState = false;
+				gamePanel.serverState = false;
 			}
 		}
 		
-	}
+	}*/
 }

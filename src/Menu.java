@@ -54,6 +54,7 @@ public class Menu extends JPanel
 		this.add(jt_ip,gbc);
 		this.add(Box.createVerticalStrut(50));
 		jb_start.addActionListener(new myActionListener());
+		jb_host.addActionListener(new hostActionListener());
 
 		//this.addKeyListener(new myKeyListener());
 	}
@@ -101,15 +102,55 @@ public class Menu extends JPanel
 		public void actionPerformed(ActionEvent arg0) 
 		{
 			visible = false;
-
+			Main.gamePanel.game.start();
 			Main.mf.remove(Main.m);
-			Main.mf.add(Main.game,BorderLayout.CENTER);
+			Main.mf.add(Main.gamePanel,BorderLayout.CENTER);
 			Main.mf.pack();
 			Main.mf.setSize(new Dimension(ablakSize*2-160,ablakSize));
 
 
 		}
 		
+	}
+
+	class hostActionListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0)
+		{
+
+			visible = false;
+			Main.gamePanel.server = true;
+			Main.gamePanel.client = false;
+
+			Main.mf.remove(Main.m);
+			Main.mf.add(Main.gamePanel,BorderLayout.CENTER);
+			Main.mf.pack();
+			Main.mf.setSize(new Dimension(ablakSize*2-160,ablakSize));
+
+		}
+
+	}
+
+	class joinActionListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0)
+		{
+
+			visible = false;
+			Main.gamePanel.server = false;
+			Main.gamePanel.client = true;
+			Main.gamePanel.ip = jt_ip.getText();
+			Main.mf.remove(Main.m);
+			Main.mf.add(Main.gamePanel,BorderLayout.CENTER);
+			Main.mf.pack();
+			Main.mf.setSize(new Dimension(ablakSize*2-160,ablakSize));
+
+		}
+
 	}
 
 }

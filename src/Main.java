@@ -2,13 +2,11 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public class  Main
 {
 	public static JFrame mf;
-	public static GamePanel game;
+	public static GamePanel gamePanel;
 	public static Menu m;
 
 	public static void main(String[] agrs)
@@ -18,7 +16,7 @@ public class  Main
 		mf = new JFrame("SWINGPROJECT");
 		mf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mf.setTitle("Hinta palinta");
-		game = new GamePanel(ablakSize);
+		gamePanel = new GamePanel(ablakSize);
 		m = new Menu(ablakSize);
 
 		mf.add(m,BorderLayout.CENTER);
@@ -34,7 +32,7 @@ public class  Main
 		}
 
 		try {
-			game.Loop();
+			gamePanel.Loop();
 
 		} catch (InterruptedException e) {
 			e.printStackTrace();

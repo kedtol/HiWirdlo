@@ -1,65 +1,99 @@
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.net.*;
 
 public class Game 
 {
-	public Map map;
+	public Map map = null;
 	public Texture texture = new Texture();
 	public int mode = 1;
 	public boolean serverState = false;
-	
+	public boolean clientState = false;
+	public String ip = "localhost";
+
 	public Game()
 	{
+
+	}
+
+	public class Server
+	{
+
+		//ServerSocket Socket = new ServerSocket();
+	}
+
+	public class Client
+	{
+
+
+	}
+
+	public void start()
+	{
 		map = new Map(15,15,0,2);
-		
+		map.generate(0);
+		Time.tick = 0;
+		Time.fullTick = 0;
 	}
 	
 	public void draw(Graphics g)
 	{
-		map.playerList[0].camera.drawDebug(g);
+		if (map != null)
+		{
+			map.playerList[0].camera.drawDebug(g);
 
-		map.draw(g,mode,texture);
+			map.draw(g, mode, texture);
+		}
 
 	}
 	
 	public void keyInput(int key, boolean released, boolean listener, int _player)
 	{
-		if (listener == true)
+		if (map != null)
 		{
-			//map.player.movinglistener(key,true);
-			//map.camera.movement(key);
-			switch(key)
+			if (listener == true)
 			{
-				case KeyEvent.VK_C:
-					if (mode == 0)
-					{
-						mode = 1;
-					}
-					else
-					{
-						mode = 0;
-					}
-				break;
+				//map.player.movinglistener(key,true);
+				//map.camera.movement(key);
+				switch (key)
+				{
+					case KeyEvent.VK_C:
+						if (mode == 0)
+						{
+							mode = 1;
+						}
+						else
+						{
+							mode = 0;
+						}
+						break;
+				}
 			}
-		}
-		else
-		{
-			if (map.playerList[_player].alive == true)
+			else
 			{
-				map.playerList[_player].moveInput(key, released, true);
+				if (map.playerList[_player].alive == true)
+				{
+					map.playerList[_player].moveInput(key, released, true);
+				}
 			}
 		}
 	}
 	
 	public void restart(int generator)
 	{
+		if (map != null)
+		{
 		map.generate(generator);
 		Time.tick = 0;
 		Time.fullTick = 0;
+		}
 	}
 	
 	public void tickMove()
 	{
-		map.actionLoop();
+		if (map != null)
+		{
+			map.actionLoop();
+		}
 	}
 }

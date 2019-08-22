@@ -55,6 +55,7 @@ public class Menu extends JPanel
 		this.add(Box.createVerticalStrut(50));
 		jb_start.addActionListener(new myActionListener());
 		jb_host.addActionListener(new hostActionListener());
+		jb_join.addActionListener(new joinActionListener());
 
 		//this.addKeyListener(new myKeyListener());
 	}
@@ -123,6 +124,7 @@ public class Menu extends JPanel
 			visible = false;
 			Main.gamePanel.server = true;
 			Main.gamePanel.client = false;
+			Main.gamePanel.visible = true;
 
 			Main.mf.remove(Main.m);
 			Main.mf.add(Main.gamePanel,BorderLayout.CENTER);
@@ -144,6 +146,8 @@ public class Menu extends JPanel
 			Main.gamePanel.server = false;
 			Main.gamePanel.client = true;
 			Main.gamePanel.ip = jt_ip.getText();
+			Main.gamePanel.visible = true;
+
 			Main.mf.remove(Main.m);
 			Main.mf.add(Main.gamePanel,BorderLayout.CENTER);
 			Main.mf.pack();

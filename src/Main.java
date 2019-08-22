@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 
@@ -34,7 +35,7 @@ public class  Main
 		try {
 			gamePanel.Loop();
 
-		} catch (InterruptedException e) {
+		} catch (InterruptedException | IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 

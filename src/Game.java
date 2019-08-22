@@ -1,15 +1,22 @@
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.net.*;
+import java.io.*;
 
 public class Game 
 {
 	public Map map = null;
 	public Texture texture = new Texture();
 	public int mode = 1;
+
 	public boolean serverState = false;
 	public boolean clientState = false;
+	public boolean started = false;
+    public Server server;
+	public Client client;
+
 	public String ip = "localhost";
+	public int port = 29869;
 
 	public Game()
 	{
@@ -18,15 +25,103 @@ public class Game
 
 	public class Server
 	{
+		private ServerSocket serverSocket;
+		private Socket socket;
+		private ObjectInputStream serverInput;
+		private ObjectOutputStream serverOutput;
+        public boolean isOnline = false;
 
-		//ServerSocket Socket = new ServerSocket();
+		public void start() throws IOException
+		{
+			serverSocket = new ServerSocket(port);
+			socket = serverSocket.accept();
+
+			serverInput = new ObjectInputStream(socket.getInputStream());
+
+            serverOutput = new ObjectOutputStream(socket.getOutputStream());
+
+            isOnline = true;
+		}
+
+		public void loop() throws IOException, ClassNotFoundException
+        {
+            serverInput = new ObjectInputStream(socket.getInputStream());
+
+            String message = (String) serverInput.readObject();
+            if (message == "hello")
+            {
+                System.out.println("They said something!");
+            }
+        }
+
+		public void stop() throws IOException
+        {
+            serverSocket.close();
+            isOnline = false;
+        }
+
+
 	}
 
 	public class Client
 	{
 
+	    private Socket socket;
+        private ObjectInputStream clientInput;
+        private ObjectOutputStream clientOutput;
 
-	}
+        public void connect() throws IOException
+        {
+            InetAddress serverAddress = InetAddress.getLocalHost();
+            socket = null;
+            clientInput = null;
+            clientOutput = null;
+            socket = new Socket(serverAddress.getHostName(), port);
+            clientOutput = new ObjectOutputStream(socket.getOutputStream());
+            clientInput = new ObjectInputStream(socket.getInputStream());
+
+        }
+
+        public void loop() throws IOException
+        {
+            clientOutput = new ObjectOutputStream(socket.getOutputStream());
+            System.out.println("Konekted try me bics");
+            clientOutput.writeObject("hello");
+        }
+    }
+
+    public void networkCode() throws IOException, ClassNotFoundException
+    {
+        if (started == false)
+        {
+            if (serverState == true)
+            {
+                server = new Server();
+                server.start();
+				System.out.println("server started");
+				started = true;
+            }
+            else
+            {
+                client = new Client();
+                client.connect();
+				System.out.println("client started");
+				started = true;
+            }
+        }
+        else
+        {
+            if (serverState == true)
+            {
+                server.loop();
+            }
+            else
+            {
+                client.loop();
+            }
+        }
+		System.out.println("no");
+    }
 
 	public void start()
 	{
